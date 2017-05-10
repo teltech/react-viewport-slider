@@ -4,9 +4,12 @@
     "browser": true,
     "es6": true
   },
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
   },
   "rules": {
     "curly": 0,
@@ -20,7 +23,8 @@
     "no-nested-ternary": 2,
     "no-use-before-define": [2, "nofunc"],
     "quotes": [2, "single"],
-    "space-after-keywords": [2, "always"],
+    "space-after-keywords": "off",
+    "keyword-spacing": [2, {"before": true, "after": true}],
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, "never"],
     "space-in-parens": [2, "never"],
