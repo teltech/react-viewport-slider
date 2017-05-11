@@ -1,0 +1,14 @@
+/.editorconfig
+/.eslintrc
+/.gitignore
+/.jshintrc
+/.travis.yml
+/CHANGES.md
+/CODE_OF_CONDUCT.md
+/webpack.config.demo.js
+/webpack.config.dist.js
+/demo/
+/.old/
+/test/
+/src/
+/dist/modules/
