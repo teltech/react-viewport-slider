@@ -5,7 +5,13 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel?loose=all', exclude: /node_modules/ }
+      { test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        query: {
+          presets: ['react']
+        }
+      }
     ]
   },
 
@@ -20,11 +26,7 @@ module.exports = {
     library: 'ViewportSlider'
   },
 
-  plugins: [
-    new webpack.optimize.DedupePlugin()
-  ],
-
   resolve: {
-    extensions: ['', '.jsx', '.js']
+    extensions: ['.jsx', '.js']
   }
 };

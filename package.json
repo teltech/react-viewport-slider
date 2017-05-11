@@ -34,11 +34,13 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "prop-types": "^15.5.9",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "scroll-to-y": "git://github.com/daviferreira/scroll-to-y.git"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
@@ -50,6 +52,7 @@
     "mocha": "^3.3.0",
     "normalize.css": "^7.0.0",
     "react-addons-test-utils": "^15.5.1",
+    "react-devtools": "^2.1.9",
     "react-test-renderer": "^15.5.4",
     "sinon": "^2.2.0",
     "skin-deep": "^1.0.0",
@@ -61,6 +64,7 @@
   },
   "babel": {
     "presets": [
+      "react",
       "es2015"
     ],
     "plugins": [

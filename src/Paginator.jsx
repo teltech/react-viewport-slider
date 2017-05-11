@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 
 import Bullet from './Bullet';
 
@@ -13,10 +14,10 @@ const Paginator = (props) => {
     transform: 'translateY(-50%)',
     zIndex: 2
   }
-
+  
   return (
     <div className="viewport-slider-paginator" style={style}>
-      {Array.from(new Array(props.bullets), (x, i) => i + 1).map((i) => {
+      {Array.from(new Array(props.bullets), (x, i) => i /*+ 1*/).map((i) => {
         return (
           <Bullet active={i === props.activeIndex}
             key={i}

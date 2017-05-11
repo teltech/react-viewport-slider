@@ -1,7 +1,8 @@
 'use strict';
 
 import classNames from 'classnames';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Bullet = (props) => {
 
@@ -21,7 +22,7 @@ const Bullet = (props) => {
   )
 
   return (
-    <a href={`#viewport-slide-${props.index}`}
+    <a href="#"/*{`#viewport-slide-${props.index}`}*/
       className={classes}
       onClick={handleClick}
       style={style} />

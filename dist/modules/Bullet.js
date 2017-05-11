@@ -1,8 +1,8 @@
 'use strict';
 
-exports.__esModule = true;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _classnames = require('classnames');
 
@@ -11,6 +11,12 @@ var _classnames2 = _interopRequireDefault(_classnames);
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Bullet = function Bullet(props) {
 
@@ -24,19 +30,18 @@ var Bullet = function Bullet(props) {
     props.onClick(props.index, true);
   };
 
-  var classes = _classnames2['default']('viewport-slider-paginator-bullet', { 'is-active': props.active });
+  var classes = (0, _classnames2.default)('viewport-slider-paginator-bullet', { 'is-active': props.active });
 
-  return _react2['default'].createElement('a', { href: '#viewport-slide-' + props.index,
-    className: classes,
+  return _react2.default.createElement('a', { href: '#' /*{`#viewport-slide-${props.index}`}*/
+    , className: classes,
     onClick: handleClick,
     style: style });
 };
 
 Bullet.propTypes = {
-  active: _react.PropTypes.bool,
-  index: _react.PropTypes.number.isRequired,
-  onClick: _react.PropTypes.func
+  active: _propTypes2.default.bool,
+  index: _propTypes2.default.number.isRequired,
+  onClick: _propTypes2.default.func
 };
 
-exports['default'] = Bullet;
-module.exports = exports['default'];
+exports.default = Bullet;
