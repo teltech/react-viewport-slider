@@ -1,7 +1,6 @@
 'use strict';
 
 require('normalize.css');
-require('../src/styles.css');
 require('./demo.css');
 
 import React from 'react';

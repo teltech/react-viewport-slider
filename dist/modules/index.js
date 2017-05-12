@@ -32,5 +32,3 @@ Object.defineProperty(exports, 'SliderButton', {
 });
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-require('./styles.css');

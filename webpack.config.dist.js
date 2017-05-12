@@ -1,7 +1,4 @@
 var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require('path');
 
 module.exports = {
   entry: './src/index.js',
@@ -14,14 +11,6 @@ module.exports = {
         query: {
           presets: ['react']
         }
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader?importLoaders=1!postcss-loader'
-        }),
-        include: [path.join(__dirname, 'src')]
       }
     ]
   },
@@ -38,11 +27,6 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.jsx', '.js', '.css']
-  },
-
-  plugins: [
-    new ExtractTextPlugin('dist/styles.css'),
-  ]
-  
+    extensions: ['.jsx', '.js']
+  }
 };

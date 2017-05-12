@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -294,11 +294,11 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(17)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(16)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(16)();
+  module.exports = __webpack_require__(15)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
@@ -708,7 +708,7 @@ var _classnames = __webpack_require__(4);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _scrollToY = __webpack_require__(18);
+var _scrollToY = __webpack_require__(17);
 
 var _scrollToY2 = _interopRequireDefault(_scrollToY);
 
@@ -716,7 +716,7 @@ var _SliderItem = __webpack_require__(7);
 
 var _SliderItem2 = _interopRequireDefault(_SliderItem);
 
-var _Paginator = __webpack_require__(13);
+var _Paginator = __webpack_require__(12);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -894,12 +894,6 @@ exports.default = Slider;
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -952,7 +946,7 @@ Bullet.propTypes = {
 exports.default = Bullet;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -970,7 +964,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Bullet = __webpack_require__(12);
+var _Bullet = __webpack_require__(11);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -1009,7 +1003,7 @@ Paginator.propTypes = {
 exports.default = Paginator;
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1048,10 +1042,8 @@ Object.defineProperty(exports, 'SliderButton', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-__webpack_require__(11);
-
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1120,7 +1112,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1181,7 +1173,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1201,7 +1193,7 @@ var invariant = __webpack_require__(6);
 var warning = __webpack_require__(8);
 
 var ReactPropTypesSecret = __webpack_require__(9);
-var checkPropTypes = __webpack_require__(15);
+var checkPropTypes = __webpack_require__(14);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -1701,7 +1693,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (root, factory) {
