@@ -20,14 +20,24 @@ Advantages:
 
 …
 
-<Slider>
+<Slider
+  [className:string={'viewport-slider' className |'viewport-slider'}
+  [style:object={style}
+>
   <SliderItem 
-    isActive={true|false}
-    isHidden={true|false} * TODO
-    className="content-one" 
-    style={{}} 
-    defaultPaginator={true*|false} * TODO
-    nextButton={...}
+    
+    [isActive:bool=<true=default|false>]
+
+    [isHidden:bool=<true|false=default>] * TODO
+    
+    [className:string={'viewport-slider-item' className |'viewport-slider-item'}
+    
+    [style:object={SliderItem.defaultProps.style + style | SliderItem.defaultProps.style}
+    
+    [defaultPaginator:bool=<true=default|false>] * TODO
+    
+    [nextButton:object={SliderItem.defaultProps | (nextButton.type===SliderButton? nextButton : <SliderButton>nextButton</SliderButton>}]
+
   >
     <!-- ... content ... -->
   </SliderItem>

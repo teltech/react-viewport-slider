@@ -143,9 +143,13 @@ class Slider extends Component {
     }
 
     const childrenToRender = React.Children.map(this.props.children, buildChildrenToRender);
+    const {className, style} = this.props;
 
     return (
-      <div>
+      <div 
+        className={classNames(Slider.defaultProps.className, className)}
+        style={style}
+      >
         <Paginator
           activeIndex={this.state.activeIndex}
           bullets={countSliderItems}
@@ -157,8 +161,13 @@ class Slider extends Component {
   }
 
 }
+Slider.defaultProps = {
+  className: 'viewport-slider'
+}
 
 Slider.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

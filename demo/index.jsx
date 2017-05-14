@@ -28,7 +28,7 @@ const ButtonNextItem3 = () => {
 class Demo extends React.Component {
   render() {
     return (
-      <Slider>
+      <Slider className="ola" style={{backgroundColor: 'red'}}>
         <SliderItem style={styleItem1}>
           <div className="content">Hello, world.</div>
         </SliderItem>

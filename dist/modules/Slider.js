@@ -181,10 +181,17 @@ var Slider = function (_Component) {
       };
 
       var childrenToRender = _react2.default.Children.map(this.props.children, buildChildrenToRender);
+      var _props = this.props,
+          className = _props.className,
+          style = _props.style;
+
 
       return _react2.default.createElement(
         'div',
-        null,
+        {
+          className: (0, _classnames2.default)(Slider.defaultProps.className, className),
+          style: style
+        },
         _react2.default.createElement(_Paginator2.default, {
           activeIndex: this.state.activeIndex,
           bullets: countSliderItems,
@@ -198,7 +205,13 @@ var Slider = function (_Component) {
   return Slider;
 }(_react.Component);
 
+Slider.defaultProps = {
+  className: 'viewport-slider'
+};
+
 Slider.propTypes = {
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object,
   children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired
 };
 
