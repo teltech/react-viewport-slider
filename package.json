@@ -35,7 +35,7 @@
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "scroll-to-y": "git://github.com/daviferreira/scroll-to-y.git"
+    "scroll-to-y": "https://github.com/borntorun/scroll-to-y.git#noES6code"
   },
   "devDependencies": {
     "autoprefixer": "^7.0.1",

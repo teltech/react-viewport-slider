@@ -4393,9 +4393,9 @@ sax@^1.2.1, sax@~1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
-"scroll-to-y@git://github.com/daviferreira/scroll-to-y.git":
+"scroll-to-y@https://github.com/borntorun/scroll-to-y.git#noES6code":
   version "0.0.1"
-  resolved "git://github.com/daviferreira/scroll-to-y.git#0da7aa1e9b1a70fd886d050278a22e193da51384"
+  resolved "https://github.com/borntorun/scroll-to-y.git#b272e6327c52b03822e8a95a6889a57b7c935a8f"
 
 select-hose@^2.0.0:
   version "2.0.0"
