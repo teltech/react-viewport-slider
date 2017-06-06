@@ -11,9 +11,9 @@ import { Slider, SliderItem, SliderButton } from '../src';
 // http://alpha.wallhaven.cc/wallpaper/164335
 const wallpaper = 'http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-164335.png';
 
-const styleItem1 = { backgroundColor: '#a2d7c7' };
-const styleItem2 = { backgroundColor: '#353330', marginLeft: 250, width:'calc( 100% - 250px)' };
-const styleItem4 = { backgroundColor: '#b2d7c7' };
+const styleItem1 = { backgroundColor: '#a2d7c7', height: '100vh' };
+const styleItem2 = { backgroundColor: '#353330', marginLeft: 250, width:'calc( 100% - 250px)', height: '100vh' };
+const styleItem4 = { backgroundColor: '#b2d7c7', height: '100vh' };
 
 const ButtonNextItem3 = () => {
   return (
@@ -43,7 +43,7 @@ class Demo extends React.Component {
         
         <SliderItem 
           className="has-overlay"
-          style={{ backgroundImage: `url(${wallpaper})`, backgroundSize: 'cover' }}
+          style={{ backgroundImage: `url(${wallpaper})`, backgroundSize: 'cover', height: '100vh' }}
           nextButton={<ButtonNextItem3 />}
         >
           <div className="content">Yo.</div>

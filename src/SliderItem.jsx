@@ -14,7 +14,6 @@ const SliderItem = () => {
 SliderItem.defaultProps = {
   style: {
     boxSizing: 'border-box',
-    height: '100vh',
     position: 'relative',
     width: '100%',
     backgroundColor: '#CDCDCD'
