@@ -15,9 +15,13 @@ const Paginator = (props) => {
     zIndex: 2
   }
   
+  const aBullets = [];
+  for(let i=0; i<props.bullets; i+=1) {
+    aBullets.push(i);
+  }
   return (
     <div className="viewport-slider-paginator" style={style}>
-      {Array.from(new Array(props.bullets), (x, i) => i /*+ 1*/).map((i) => {
+      {aBullets.map((i) => {
         return (
           <Bullet active={i === props.activeIndex}
             key={i}

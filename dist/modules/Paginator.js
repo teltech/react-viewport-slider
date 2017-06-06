@@ -28,12 +28,14 @@ var Paginator = function Paginator(props) {
     zIndex: 2
   };
 
+  var aBullets = [];
+  for (var i = 0; i < props.bullets; i += 1) {
+    aBullets.push(i);
+  }
   return _react2.default.createElement(
     'div',
     { className: 'viewport-slider-paginator', style: style },
-    Array.from(new Array(props.bullets), function (x, i) {
-      return i;
-    } /*+ 1*/).map(function (i) {
+    aBullets.map(function (i) {
       return _react2.default.createElement(_Bullet2.default, { active: i === props.activeIndex,
         key: i,
         index: i,

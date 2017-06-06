@@ -565,7 +565,7 @@ var SliderItem = function SliderItem() {
 SliderItem.defaultProps = {
   style: {
     boxSizing: 'border-box',
-    /*height: '100vh',*/
+    height: '100vh',
     position: 'relative',
     width: '100%',
     backgroundColor: '#CDCDCD'
@@ -993,12 +993,14 @@ var Paginator = function Paginator(props) {
     zIndex: 2
   };
 
+  var aBullets = [];
+  for (var i = 0; i < props.bullets; i += 1) {
+    aBullets.push(i);
+  }
   return _react2.default.createElement(
     'div',
     { className: 'viewport-slider-paginator', style: style },
-    Array.from(new Array(props.bullets), function (x, i) {
-      return i;
-    } /*+ 1*/).map(function (i) {
+    aBullets.map(function (i) {
       return _react2.default.createElement(_Bullet2.default, { active: i === props.activeIndex,
         key: i,
         index: i,
@@ -1727,7 +1729,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
   // first add raf shim
   // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
-  window.requestAnimFrame = (() => {
+  window.requestAnimFrame = (function() {
     return window.requestAnimationFrame     ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame  ||
@@ -1755,13 +1757,13 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     // easing equations from https://github.com/danro/easing-js/blob/master/easing.js
     var PI_D2 = Math.PI / 2,
       easingEquations = {
-        easeOutSine(pos) {
+        easeOutSine: function easeOutSine(pos) {
           return Math.sin(pos * (Math.PI / 2));
         },
-        easeInOutSine(pos) {
+        easeInOutSine: function easeInOutSine(pos) {
           return (-0.5 * (Math.cos(Math.PI * pos) - 1));
         },
-        easeInOutQuint(pos) {
+        easeInOutQuint: function easeInOutQuint(pos) {
           if ((pos /= 0.5) < 1) {
             return 0.5 * Math.pow(pos, 5);
           }
