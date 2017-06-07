@@ -53,6 +53,3 @@ Advantages:
 </Slider>
 
 ```
-
-* if only one item exists paginator is not shown  * TODO
-
