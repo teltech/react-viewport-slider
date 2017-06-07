@@ -7,7 +7,7 @@
 		exports["ViewportSlider"] = factory(require("React"));
 	else
 		root["ViewportSlider"] = factory(root["React"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -73,11 +73,54 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(18)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(17)();
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -267,109 +310,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-if (process.env.NODE_ENV !== 'production') {
-  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-    Symbol.for &&
-    Symbol.for('react.element')) ||
-    0xeac7;
-
-  var isValidElement = function(object) {
-    return typeof object === 'object' &&
-      object !== null &&
-      object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(16)(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(15)();
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = __webpack_require__(4);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SliderButton = function SliderButton(props) {
-  return _react2.default.createElement(
-    'a',
-    { href: '#' /*{`#viewport-slide-${ props.index + 1 }`}*/
-      , className: (0, _classnames2.default)(SliderButton.defaultProps.className, props.className),
-      onClick: function onClick() {
-        return props.onClick(props.index + 1, true);
-      },
-      style: Object.assign({}, SliderButton.defaultProps.style, props.style) },
-    props.children
-  );
-};
-
-SliderButton.defaultProps = {
-  index: 0,
-  className: 'viewport-slider-button',
-  style: {
-    bottom: '50px',
-    left: '50%',
-    position: 'absolute',
-    transform: 'translateX(-50%)',
-    zIndex: 2
-  }
-};
-
-SliderButton.propTypes = {
-  index: _propTypes2.default.number.isRequired,
-  onClick: _propTypes2.default.func,
-  className: _propTypes2.default.string,
-  style: _propTypes2.default.object
-};
-
-exports.default = SliderButton;
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -424,7 +365,116 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(3);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SliderButton = function SliderButton(props) {
+  return _react2.default.createElement(
+    'a',
+    { href: '#' /*{`#viewport-slide-${ props.index + 1 }`}*/
+      , className: (0, _classnames2.default)(SliderButton.defaultProps.className, props.className),
+      onClick: function onClick() {
+        return props.onClick(props.index + 1, true);
+      },
+      style: Object.assign({}, SliderButton.defaultProps.style, props.style) },
+    props.children
+  );
+};
+
+SliderButton.defaultProps = {
+  index: 0,
+  className: 'viewport-slider-button',
+  style: {
+    bottom: '50px',
+    left: '50%',
+    position: 'absolute',
+    transform: 'translateX(-50%)',
+    zIndex: 2
+  }
+};
+
+SliderButton.propTypes = {
+  index: _propTypes2.default.number.isRequired,
+  onClick: _propTypes2.default.func,
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object
+};
+
+exports.default = SliderButton;
+
+/***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SliderPaginator = function SliderPaginator() {
+  // nothing to render
+  // the real thing is made in the Slider
+  // SliderPaginator is just an abstraction for the user 
+  // just need this to be part of the component API 
+  return null;
+};
+
+SliderPaginator.defaultProps = {
+  defaultStyle: true,
+  className: 'viewport-slider-paginator',
+  style: {
+    top: '50%',
+    right: '50px',
+    position: 'fixed',
+    transform: 'translateY(-50%)',
+    zIndex: 2
+  }
+};
+
+SliderPaginator.propTypes = {
+  defaultStyle: _propTypes2.default.bool,
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object,
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
+
+exports.default = SliderPaginator;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -468,7 +518,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -527,10 +577,10 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -540,15 +590,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(2);
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _SliderButton = __webpack_require__(3);
+var _SliderButton = __webpack_require__(4);
 
 var _SliderButton2 = _interopRequireDefault(_SliderButton);
 
@@ -574,20 +624,57 @@ SliderItem.defaultProps = {
     _SliderButton2.default,
     null,
     'next'
-  )
+  ),
+  isActive: false
 };
 
 SliderItem.propTypes = {
   className: _propTypes2.default.string,
   style: _propTypes2.default.object,
   children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  isActive: _propTypes2.default.bool,
   nextButton: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.node])
 };
 
 exports.default = SliderItem;
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SliderPaginatorItem = function SliderPaginatorItem() {
+  // nothing to render
+  // the real thing is made in the Slider
+  // SliderPaginatorItem is just an abstraction for the user 
+  // just need this to be part of the component API 
+  return null;
+};
+
+SliderPaginatorItem.propTypes = {
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
+
+exports.default = SliderPaginatorItem;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -603,7 +690,7 @@ exports.default = SliderItem;
 
 
 
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -657,10 +744,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 module.exports = warning;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -681,7 +768,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -691,37 +778,45 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(2);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(1);
+var _propTypes = __webpack_require__(0);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames = __webpack_require__(4);
+var _classnames = __webpack_require__(3);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _scrollToY = __webpack_require__(17);
+var _scrollToY = __webpack_require__(19);
 
 var _scrollToY2 = _interopRequireDefault(_scrollToY);
 
-var _SliderItem = __webpack_require__(7);
+var _SliderItem = __webpack_require__(8);
 
 var _SliderItem2 = _interopRequireDefault(_SliderItem);
 
-var _Paginator = __webpack_require__(12);
+var _Paginator = __webpack_require__(14);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
-var _SliderButton = __webpack_require__(3);
+var _SliderButton = __webpack_require__(4);
 
 var _SliderButton2 = _interopRequireDefault(_SliderButton);
+
+var _SliderPaginator = __webpack_require__(5);
+
+var _SliderPaginator2 = _interopRequireDefault(_SliderPaginator);
+
+var _SliderPaginatorItem = __webpack_require__(9);
+
+var _SliderPaginatorItem2 = _interopRequireDefault(_SliderPaginatorItem);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -731,6 +826,105 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * constructSlider
+ * scope: private 
+ * 
+ * Used to dynamicly build the slider
+ * 
+ */
+function constructSlider() {
+  var _this = this;
+
+  var countSliderItems = this.state.countSliderItems;
+
+  var indexSliderItem = 0;
+
+  // set default paginator props
+  this.paginatorProps = {
+    onClick: this.setActive
+  };
+  this.showPaginator = true;
+
+  // build children items
+  // Will be called on each Slider child
+  var buildChildrenToRender = function buildChildrenToRender(child, index) {
+
+    // check for SliderItem
+    if (child.type === _SliderItem2.default) {
+      var propsClone = Object.create(child.props || {});
+      delete propsClone.children;
+
+      var ref = 'slide-' + indexSliderItem;
+
+      indexSliderItem += 1;
+
+      // customize next button
+      var nextButton = child.props.nextButton.type === _SliderButton2.default ? child.props.nextButton : _react2.default.cloneElement(_SliderItem2.default.defaultProps.nextButton, null, child.props.nextButton);
+
+      nextButton = _react2.default.cloneElement(nextButton, {
+        index: indexSliderItem - 1,
+        onClick: _this.setActive
+      }, nextButton.props.children);
+      //
+
+      return _react2.default.createElement(
+        'div',
+        _extends({
+          ref: ref
+        }, propsClone, {
+          className: (0, _classnames2.default)(_SliderItem2.default.defaultProps.className, child.props.className),
+          style: Object.assign({}, _SliderItem2.default.defaultProps.style, child.props.style)
+        }),
+        child.props.children,
+        indexSliderItem < countSliderItems && nextButton
+      );
+    }
+    // check for SliderPaginator 
+    else if (child.type === _SliderPaginator2.default) {
+        _this.showPaginator = false;
+
+        if (!child.props.defaultStyle || countSliderItems > 1) {
+          _this.showPaginator = true;
+
+          var bullets = _react2.default.Children.map(child.props.children, function (childPaginator) {
+            if (childPaginator.type === _SliderPaginatorItem2.default) {
+              return childPaginator.props.children;
+            } else {
+              return null;
+            }
+          });
+
+          var forceDafaultLayout = false;
+          if (bullets && bullets.length !== countSliderItems) {
+            forceDafaultLayout = true;
+            if (console && console.warn) {
+              console.warn('Number of \'SliderPaginatorItem\' elements diffs from number of \'SliderItem\'\nDefault layout will be applied');
+            }
+            bullets = undefined;
+          }
+
+          if (!bullets) {
+            bullets = Array.apply(null, { length: countSliderItems });
+          }
+
+          _this.paginatorProps = {
+            className: child.props.className,
+            style: Object.assign({}, child.props.style),
+            onClick: _this.setActive,
+            defaultStyle: forceDafaultLayout || child.props.defaultStyle,
+            bullets: bullets
+          };
+        }
+      } else {
+        // any other child is rendered as is
+        return child;
+      }
+  };
+
+  return buildChildrenToRender.bind(this);
+}
+
 var Slider = function (_Component) {
   _inherits(Slider, _Component);
 
@@ -738,56 +932,72 @@ var Slider = function (_Component) {
     _classCallCheck(this, Slider);
 
     // set the default item to activate based on isActive prop of SliderItem's
-    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
 
-    var activeIndex = _this.props.children.filter(function (child) {
+    var activeIndex = !_this2.props.children ? 0 : _this2.props.children.filter(function (child) {
       return child.type === _SliderItem2.default;
     }).reduce(function (value, child, index) {
       return child.props.isActive && value === -1 ? index : value;
     }, -1);
 
-    _this.state = {
+    // set initial state
+    _this2.state = {
       activeIndex: activeIndex === -1 ? 0 : activeIndex,
-      countSliderItems: _this.props.children.filter(function (child) {
+      countSliderItems: !_this2.props.children ? 0 : _this2.props.children.filter(function (child) {
         return child.type === _SliderItem2.default;
       }).length
     };
 
-    _this.setActive = _this.setActive.bind(_this);
-    _this.handleScroll = _this.handleScroll.bind(_this);
-    _this.scrollToPanel = _this.scrollToPanel.bind(_this);
-    _this.lastScroll = 0;
+    if (_this2.state.countSliderItems === 0) {
+      if (console && console.warn) {
+        console.warn('No \'SliderItem\' on children of \'Slider\'');
+      }
+    }
 
-    window.addEventListener('scroll', _this.handleScroll);
+    _this2.setActive = _this2.setActive.bind(_this2);
+    _this2.handleScroll = _this2.handleScroll.bind(_this2);
+    _this2.scrollToPanel = _this2.scrollToPanel.bind(_this2);
+    _this2.lastScroll = 0;
 
-    return _this;
+    // set scroll event listener 
+    window.addEventListener('scroll', _this2.handleScroll);
+
+    // build children
+    _this2.childrenToRender = _react2.default.Children.map(_this2.props.children, constructSlider.call(_this2));
+
+    // no paginator declared use default
+    if (!_this2.paginatorProps.bullets) {
+      _this2.paginatorProps.bullets = Array.apply(null, { length: _this2.state.countSliderItems });
+    }
+
+    return _this2;
   }
 
   _createClass(Slider, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
+      var _this3 = this;
 
       // scroll to the active item
       setTimeout(function () {
-
-        _this2.isMounting = true;
-        _this2.scrollToPanel(_this2.state.activeIndex);
-      }, 250);
+        _this3.isMounting = true;
+        _this3.scrollToPanel(_this3.state.activeIndex);
+      }, 100);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      // remove scroll event listener
       window.removeEventListener('scroll', this.handleScroll);
     }
   }, {
     key: 'scrollToPanel',
     value: function scrollToPanel(index, callback) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.isAnimating = true;
-      (0, _scrollToY2.default)(this.refs['slide-' + index].offsetTop, 1000, 'easeInOutQuint', function () {
-        _this3.isAnimating = false;
+      (0, _scrollToY2.default)(this.refs['slide-' + index].offsetTop, this.props.animateSpeed, 'easeInOutQuint', function () {
+        _this4.isAnimating = false;
       });
     }
   }, {
@@ -814,60 +1024,17 @@ var Slider = function (_Component) {
   }, {
     key: 'setActive',
     value: function setActive(index, scrollTo) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.setState({ activeIndex: index }, function () {
         if (scrollTo) {
-          _this4.scrollToPanel(index);
+          _this5.scrollToPanel(index);
         }
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
-
-      var countSliderItems = this.state.countSliderItems;
-
-      var indexSliderItem = 0;
-
-      // build children items
-      var buildChildrenToRender = function buildChildrenToRender(child, index) {
-        if (child.type === _SliderItem2.default) {
-          var propsClone = Object.create(child.props || {});
-          delete propsClone.children;
-
-          var ref = 'slide-' + indexSliderItem;
-
-          indexSliderItem += 1;
-
-          // customize next button
-          var nextButton = child.props.nextButton.type === _SliderButton2.default ? child.props.nextButton : _react2.default.cloneElement(_SliderItem2.default.defaultProps.nextButton, null, child.props.nextButton);
-
-          nextButton = _react2.default.cloneElement(nextButton, {
-            index: indexSliderItem - 1,
-            onClick: _this5.setActive
-          }, nextButton.props.children);
-          //
-
-          return _react2.default.createElement(
-            'div',
-            _extends({
-              ref: ref
-            }, propsClone, {
-              className: (0, _classnames2.default)(_SliderItem2.default.defaultProps.className, child.props.className),
-              style: Object.assign({}, _SliderItem2.default.defaultProps.style, child.props.style)
-            }),
-            child.props.children,
-            indexSliderItem < countSliderItems && nextButton
-          );
-        } else {
-          // any other child is rendered as is
-          return child;
-        }
-      };
-
-      var childrenToRender = _react2.default.Children.map(this.props.children, buildChildrenToRender);
       var _props = this.props,
           className = _props.className,
           style = _props.style;
@@ -879,12 +1046,10 @@ var Slider = function (_Component) {
           className: (0, _classnames2.default)(Slider.defaultProps.className, className),
           style: style
         },
-        _react2.default.createElement(_Paginator2.default, {
-          activeIndex: this.state.activeIndex,
-          bullets: countSliderItems,
-          onClick: this.setActive
-        }),
-        childrenToRender
+        this.showPaginator && _react2.default.createElement(_Paginator2.default, _extends({}, this.paginatorProps, {
+          activeIndex: this.state.activeIndex
+        })),
+        this.childrenToRender
       );
     }
   }]);
@@ -893,128 +1058,18 @@ var Slider = function (_Component) {
 }(_react.Component);
 
 Slider.defaultProps = {
-  className: 'viewport-slider'
+  className: 'viewport-slider',
+  animateSpeed: 1000
 };
 
 Slider.propTypes = {
   className: _propTypes2.default.string,
   style: _propTypes2.default.object,
-  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired,
+  animateSpeed: _propTypes2.default.number
 };
 
 exports.default = Slider;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _classnames = __webpack_require__(4);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Bullet = function Bullet(props) {
-
-  var style = {
-    display: 'block',
-    height: '20px',
-    width: '20px'
-  };
-
-  var handleClick = function handleClick() {
-    props.onClick(props.index, true);
-  };
-
-  var classes = (0, _classnames2.default)('viewport-slider-paginator-bullet', { 'is-active': props.active });
-
-  return _react2.default.createElement('a', { href: '#' /*{`#viewport-slide-${props.index}`}*/
-    , className: classes,
-    onClick: handleClick,
-    style: style });
-};
-
-Bullet.propTypes = {
-  active: _propTypes2.default.bool,
-  index: _propTypes2.default.number.isRequired,
-  onClick: _propTypes2.default.func
-};
-
-exports.default = Bullet;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Bullet = __webpack_require__(11);
-
-var _Bullet2 = _interopRequireDefault(_Bullet);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Paginator = function Paginator(props) {
-
-  var style = {
-    top: '50%',
-    right: '50px',
-    position: 'fixed',
-    transform: 'translateY(-50%)',
-    zIndex: 2
-  };
-
-  var aBullets = [];
-  for (var i = 0; i < props.bullets; i += 1) {
-    aBullets.push(i);
-  }
-  return _react2.default.createElement(
-    'div',
-    { className: 'viewport-slider-paginator', style: style },
-    aBullets.map(function (i) {
-      return _react2.default.createElement(_Bullet2.default, { active: i === props.activeIndex,
-        key: i,
-        index: i,
-        onClick: props.onClick });
-    })
-  );
-};
-
-Paginator.propTypes = {
-  activeIndex: _propTypes2.default.number,
-  bullets: _propTypes2.default.number.isRequired,
-  onClick: _propTypes2.default.func
-};
-
-exports.default = Paginator;
 
 /***/ }),
 /* 13 */
@@ -1027,7 +1082,159 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Slider = __webpack_require__(10);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _classnames = __webpack_require__(3);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Bullet = function Bullet(props) {
+  // bullet for paginator
+  var children = props.children,
+      defaultStyle = props.defaultStyle;
+
+
+  var style = {
+    display: 'block',
+    height: '20px',
+    width: '20px'
+  };
+
+  var handleClick = function handleClick(event) {
+    event.preventDefault();
+    props.onClick(props.index, true);
+  };
+
+  var classes = (0, _classnames2.default)('viewport-slider-paginator-bullet', { 'is-active': props.active });
+
+  return _react2.default.createElement(
+    'a',
+    _extends({ href: '#',
+      className: classes,
+      onClick: handleClick
+
+    }, defaultStyle ? { style: style } : {}),
+    children
+  );
+};
+
+Bullet.propTypes = {
+  active: _propTypes2.default.bool,
+  index: _propTypes2.default.number.isRequired,
+  onClick: _propTypes2.default.func,
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  defaultStyle: _propTypes2.default.bool
+};
+
+Bullet.defaultProps = {
+  defaultStyle: true
+};
+
+exports.default = Bullet;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(0);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(3);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _Bullet = __webpack_require__(13);
+
+var _Bullet2 = _interopRequireDefault(_Bullet);
+
+var _SliderPaginator = __webpack_require__(5);
+
+var _SliderPaginator2 = _interopRequireDefault(_SliderPaginator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Paginator = function Paginator(props) {
+  // The internal and real paginator
+  var className = props.className,
+      style = props.style,
+      defaultStyle = props.defaultStyle,
+      activeIndex = props.activeIndex,
+      onClick = props.onClick;
+
+
+  return _react2.default.createElement(
+    'div',
+    _extends({
+      className: (0, _classnames2.default)(_SliderPaginator2.default.defaultProps.className, defaultStyle ? '' : className)
+    }, defaultStyle ? { style: _SliderPaginator2.default.defaultProps.style } : style ? { style: style } : {}),
+    props.bullets.map(function (item, index) {
+      return _react2.default.createElement(
+        _Bullet2.default,
+        {
+          active: index === activeIndex,
+          key: index,
+          index: index,
+          onClick: onClick,
+          defaultStyle: item == null || defaultStyle
+        },
+        !defaultStyle && item
+      );
+    })
+  );
+};
+
+Paginator.propTypes = {
+  activeIndex: _propTypes2.default.number,
+  bullets: _propTypes2.default.array.isRequired,
+  onClick: _propTypes2.default.func,
+  defaultStyle: _propTypes2.default.bool,
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object
+};
+
+Paginator.defaultProps = {
+  defaultStyle: true,
+  bullets: []
+};
+
+exports.default = Paginator;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Slider = __webpack_require__(12);
 
 Object.defineProperty(exports, 'Slider', {
   enumerable: true,
@@ -1036,7 +1243,7 @@ Object.defineProperty(exports, 'Slider', {
   }
 });
 
-var _SliderItem = __webpack_require__(7);
+var _SliderItem = __webpack_require__(8);
 
 Object.defineProperty(exports, 'SliderItem', {
   enumerable: true,
@@ -1045,7 +1252,7 @@ Object.defineProperty(exports, 'SliderItem', {
   }
 });
 
-var _SliderButton = __webpack_require__(3);
+var _SliderButton = __webpack_require__(4);
 
 Object.defineProperty(exports, 'SliderButton', {
   enumerable: true,
@@ -1054,10 +1261,28 @@ Object.defineProperty(exports, 'SliderButton', {
   }
 });
 
+var _SliderPaginator = __webpack_require__(5);
+
+Object.defineProperty(exports, 'SliderPaginator', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SliderPaginator).default;
+  }
+});
+
+var _SliderPaginatorItem = __webpack_require__(9);
+
+Object.defineProperty(exports, 'SliderPaginatorItem', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SliderPaginatorItem).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1073,9 +1298,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(6);
-  var warning = __webpack_require__(8);
-  var ReactPropTypesSecret = __webpack_require__(9);
+  var invariant = __webpack_require__(7);
+  var warning = __webpack_require__(10);
+  var ReactPropTypesSecret = __webpack_require__(11);
   var loggedTypeFailures = {};
 }
 
@@ -1123,10 +1348,10 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 
 module.exports = checkPropTypes;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1141,8 +1366,8 @@ module.exports = checkPropTypes;
 
 
 
-var emptyFunction = __webpack_require__(5);
-var invariant = __webpack_require__(6);
+var emptyFunction = __webpack_require__(6);
+var invariant = __webpack_require__(7);
 
 module.exports = function() {
   // Important!
@@ -1187,7 +1412,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1202,12 +1427,12 @@ module.exports = function() {
 
 
 
-var emptyFunction = __webpack_require__(5);
-var invariant = __webpack_require__(6);
-var warning = __webpack_require__(8);
+var emptyFunction = __webpack_require__(6);
+var invariant = __webpack_require__(7);
+var warning = __webpack_require__(10);
 
-var ReactPropTypesSecret = __webpack_require__(9);
-var checkPropTypes = __webpack_require__(14);
+var ReactPropTypesSecret = __webpack_require__(11);
+var checkPropTypes = __webpack_require__(16);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -1704,10 +1929,10 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
   return ReactPropTypes;
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (root, factory) {

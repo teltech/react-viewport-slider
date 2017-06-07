@@ -31,4 +31,22 @@ Object.defineProperty(exports, 'SliderButton', {
   }
 });
 
+var _SliderPaginator = require('./SliderPaginator');
+
+Object.defineProperty(exports, 'SliderPaginator', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SliderPaginator).default;
+  }
+});
+
+var _SliderPaginatorItem = require('./SliderPaginatorItem');
+
+Object.defineProperty(exports, 'SliderPaginatorItem', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SliderPaginatorItem).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

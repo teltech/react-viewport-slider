@@ -38,13 +38,15 @@ SliderItem.defaultProps = {
     _SliderButton2.default,
     null,
     'next'
-  )
+  ),
+  isActive: false
 };
 
 SliderItem.propTypes = {
   className: _propTypes2.default.string,
   style: _propTypes2.default.object,
   children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  isActive: _propTypes2.default.bool,
   nextButton: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.node])
 };
 

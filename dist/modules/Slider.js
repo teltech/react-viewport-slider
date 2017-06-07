@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
 
@@ -36,6 +36,14 @@ var _SliderButton = require('./SliderButton');
 
 var _SliderButton2 = _interopRequireDefault(_SliderButton);
 
+var _SliderPaginator = require('./SliderPaginator');
+
+var _SliderPaginator2 = _interopRequireDefault(_SliderPaginator);
+
+var _SliderPaginatorItem = require('./SliderPaginatorItem');
+
+var _SliderPaginatorItem2 = _interopRequireDefault(_SliderPaginatorItem);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,6 +52,105 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * constructSlider
+ * scope: private 
+ * 
+ * Used to dynamicly build the slider
+ * 
+ */
+function constructSlider() {
+  var _this = this;
+
+  var countSliderItems = this.state.countSliderItems;
+
+  var indexSliderItem = 0;
+
+  // set default paginator props
+  this.paginatorProps = {
+    onClick: this.setActive
+  };
+  this.showPaginator = true;
+
+  // build children items
+  // Will be called on each Slider child
+  var buildChildrenToRender = function buildChildrenToRender(child, index) {
+
+    // check for SliderItem
+    if (child.type === _SliderItem2.default) {
+      var propsClone = Object.create(child.props || {});
+      delete propsClone.children;
+
+      var ref = 'slide-' + indexSliderItem;
+
+      indexSliderItem += 1;
+
+      // customize next button
+      var nextButton = child.props.nextButton.type === _SliderButton2.default ? child.props.nextButton : _react2.default.cloneElement(_SliderItem2.default.defaultProps.nextButton, null, child.props.nextButton);
+
+      nextButton = _react2.default.cloneElement(nextButton, {
+        index: indexSliderItem - 1,
+        onClick: _this.setActive
+      }, nextButton.props.children);
+      //
+
+      return _react2.default.createElement(
+        'div',
+        _extends({
+          ref: ref
+        }, propsClone, {
+          className: (0, _classnames2.default)(_SliderItem2.default.defaultProps.className, child.props.className),
+          style: Object.assign({}, _SliderItem2.default.defaultProps.style, child.props.style)
+        }),
+        child.props.children,
+        indexSliderItem < countSliderItems && nextButton
+      );
+    }
+    // check for SliderPaginator 
+    else if (child.type === _SliderPaginator2.default) {
+        _this.showPaginator = false;
+
+        if (!child.props.defaultStyle || countSliderItems > 1) {
+          _this.showPaginator = true;
+
+          var bullets = _react2.default.Children.map(child.props.children, function (childPaginator) {
+            if (childPaginator.type === _SliderPaginatorItem2.default) {
+              return childPaginator.props.children;
+            } else {
+              return null;
+            }
+          });
+
+          var forceDafaultLayout = false;
+          if (bullets && bullets.length !== countSliderItems) {
+            forceDafaultLayout = true;
+            if (console && console.warn) {
+              console.warn('Number of \'SliderPaginatorItem\' elements diffs from number of \'SliderItem\'\nDefault layout will be applied');
+            }
+            bullets = undefined;
+          }
+
+          if (!bullets) {
+            bullets = Array.apply(null, { length: countSliderItems });
+          }
+
+          _this.paginatorProps = {
+            className: child.props.className,
+            style: Object.assign({}, child.props.style),
+            onClick: _this.setActive,
+            defaultStyle: forceDafaultLayout || child.props.defaultStyle,
+            bullets: bullets
+          };
+        }
+      } else {
+        // any other child is rendered as is
+        return child;
+      }
+  };
+
+  return buildChildrenToRender.bind(this);
+}
+
 var Slider = function (_Component) {
   _inherits(Slider, _Component);
 
@@ -51,56 +158,72 @@ var Slider = function (_Component) {
     _classCallCheck(this, Slider);
 
     // set the default item to activate based on isActive prop of SliderItem's
-    var _this = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (Slider.__proto__ || Object.getPrototypeOf(Slider)).call(this, props));
 
-    var activeIndex = _this.props.children.filter(function (child) {
+    var activeIndex = !_this2.props.children ? 0 : _this2.props.children.filter(function (child) {
       return child.type === _SliderItem2.default;
     }).reduce(function (value, child, index) {
       return child.props.isActive && value === -1 ? index : value;
     }, -1);
 
-    _this.state = {
+    // set initial state
+    _this2.state = {
       activeIndex: activeIndex === -1 ? 0 : activeIndex,
-      countSliderItems: _this.props.children.filter(function (child) {
+      countSliderItems: !_this2.props.children ? 0 : _this2.props.children.filter(function (child) {
         return child.type === _SliderItem2.default;
       }).length
     };
 
-    _this.setActive = _this.setActive.bind(_this);
-    _this.handleScroll = _this.handleScroll.bind(_this);
-    _this.scrollToPanel = _this.scrollToPanel.bind(_this);
-    _this.lastScroll = 0;
+    if (_this2.state.countSliderItems === 0) {
+      if (console && console.warn) {
+        console.warn('No \'SliderItem\' on children of \'Slider\'');
+      }
+    }
 
-    window.addEventListener('scroll', _this.handleScroll);
+    _this2.setActive = _this2.setActive.bind(_this2);
+    _this2.handleScroll = _this2.handleScroll.bind(_this2);
+    _this2.scrollToPanel = _this2.scrollToPanel.bind(_this2);
+    _this2.lastScroll = 0;
 
-    return _this;
+    // set scroll event listener 
+    window.addEventListener('scroll', _this2.handleScroll);
+
+    // build children
+    _this2.childrenToRender = _react2.default.Children.map(_this2.props.children, constructSlider.call(_this2));
+
+    // no paginator declared use default
+    if (!_this2.paginatorProps.bullets) {
+      _this2.paginatorProps.bullets = Array.apply(null, { length: _this2.state.countSliderItems });
+    }
+
+    return _this2;
   }
 
   _createClass(Slider, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
+      var _this3 = this;
 
       // scroll to the active item
       setTimeout(function () {
-
-        _this2.isMounting = true;
-        _this2.scrollToPanel(_this2.state.activeIndex);
-      }, 250);
+        _this3.isMounting = true;
+        _this3.scrollToPanel(_this3.state.activeIndex);
+      }, 100);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      // remove scroll event listener
       window.removeEventListener('scroll', this.handleScroll);
     }
   }, {
     key: 'scrollToPanel',
     value: function scrollToPanel(index, callback) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.isAnimating = true;
-      (0, _scrollToY2.default)(this.refs['slide-' + index].offsetTop, 1000, 'easeInOutQuint', function () {
-        _this3.isAnimating = false;
+      (0, _scrollToY2.default)(this.refs['slide-' + index].offsetTop, this.props.animateSpeed, 'easeInOutQuint', function () {
+        _this4.isAnimating = false;
       });
     }
   }, {
@@ -127,60 +250,17 @@ var Slider = function (_Component) {
   }, {
     key: 'setActive',
     value: function setActive(index, scrollTo) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.setState({ activeIndex: index }, function () {
         if (scrollTo) {
-          _this4.scrollToPanel(index);
+          _this5.scrollToPanel(index);
         }
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this5 = this;
-
-      var countSliderItems = this.state.countSliderItems;
-
-      var indexSliderItem = 0;
-
-      // build children items
-      var buildChildrenToRender = function buildChildrenToRender(child, index) {
-        if (child.type === _SliderItem2.default) {
-          var propsClone = Object.create(child.props || {});
-          delete propsClone.children;
-
-          var ref = 'slide-' + indexSliderItem;
-
-          indexSliderItem += 1;
-
-          // customize next button
-          var nextButton = child.props.nextButton.type === _SliderButton2.default ? child.props.nextButton : _react2.default.cloneElement(_SliderItem2.default.defaultProps.nextButton, null, child.props.nextButton);
-
-          nextButton = _react2.default.cloneElement(nextButton, {
-            index: indexSliderItem - 1,
-            onClick: _this5.setActive
-          }, nextButton.props.children);
-          //
-
-          return _react2.default.createElement(
-            'div',
-            _extends({
-              ref: ref
-            }, propsClone, {
-              className: (0, _classnames2.default)(_SliderItem2.default.defaultProps.className, child.props.className),
-              style: Object.assign({}, _SliderItem2.default.defaultProps.style, child.props.style)
-            }),
-            child.props.children,
-            indexSliderItem < countSliderItems && nextButton
-          );
-        } else {
-          // any other child is rendered as is
-          return child;
-        }
-      };
-
-      var childrenToRender = _react2.default.Children.map(this.props.children, buildChildrenToRender);
       var _props = this.props,
           className = _props.className,
           style = _props.style;
@@ -192,12 +272,10 @@ var Slider = function (_Component) {
           className: (0, _classnames2.default)(Slider.defaultProps.className, className),
           style: style
         },
-        _react2.default.createElement(_Paginator2.default, {
-          activeIndex: this.state.activeIndex,
-          bullets: countSliderItems,
-          onClick: this.setActive
-        }),
-        childrenToRender
+        this.showPaginator && _react2.default.createElement(_Paginator2.default, _extends({}, this.paginatorProps, {
+          activeIndex: this.state.activeIndex
+        })),
+        this.childrenToRender
       );
     }
   }]);
@@ -206,13 +284,15 @@ var Slider = function (_Component) {
 }(_react.Component);
 
 Slider.defaultProps = {
-  className: 'viewport-slider'
+  className: 'viewport-slider',
+  animateSpeed: 1000
 };
 
 Slider.propTypes = {
   className: _propTypes2.default.string,
   style: _propTypes2.default.object,
-  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired,
+  animateSpeed: _propTypes2.default.number
 };
 
 exports.default = Slider;
