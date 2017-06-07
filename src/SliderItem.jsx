@@ -19,7 +19,8 @@ SliderItem.defaultProps = {
     backgroundColor: '#CDCDCD'
   },
   className: 'viewport-slider-item',
-  nextButton: <SliderButton>next</SliderButton>
+  nextButton: <SliderButton>next</SliderButton>,
+  isActive: false
 };
 
 SliderItem.propTypes = {
@@ -29,6 +30,7 @@ SliderItem.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
+  isActive: PropTypes.bool,
   nextButton: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node

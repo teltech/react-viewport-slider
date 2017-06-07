@@ -5,6 +5,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Bullet = (props) => {
+  // bullet for paginator
+  const {children, defaultStyle} = props;
 
   const style = {
     display: 'block',
@@ -12,7 +14,8 @@ const Bullet = (props) => {
     width: '20px'
   }
 
-  const handleClick = () => {
+  const handleClick = (event) => {
+    event.preventDefault();
     props.onClick(props.index, true);
   };
 
@@ -22,10 +25,14 @@ const Bullet = (props) => {
   )
 
   return (
-    <a href="#"/*{`#viewport-slide-${props.index}`}*/
+    <a href="#"
       className={classes}
       onClick={handleClick}
-      style={style} />
+      
+      {...defaultStyle ? {style} : {}}
+    >
+      {children}
+    </a>
   );
 
 };
@@ -33,7 +40,16 @@ const Bullet = (props) => {
 Bullet.propTypes = {
   active: PropTypes.bool,
   index: PropTypes.number.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  defaultStyle: PropTypes.bool
 };
+
+Bullet.defaultProps = {
+  defaultStyle: true
+}
 
 export default Bullet;
