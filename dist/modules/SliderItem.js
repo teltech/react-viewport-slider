@@ -18,11 +18,14 @@ var _SliderButton2 = _interopRequireDefault(_SliderButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * SliderItem component
+ * 
+ * @returns 
+ */
 var SliderItem = function SliderItem() {
-  // nothing to render
-  // the real thing is made in the Slider
-  // SliderItem is just an abstraction for the user 
-  // just need this to be part of the component API 
+  // nothing to render, the real thing is made in the Slider
+  // SliderItem is just a semantic abstraction for the user 
   return null;
 };
 
@@ -43,10 +46,15 @@ SliderItem.defaultProps = {
 };
 
 SliderItem.propTypes = {
+  /** Css class to apply to the element */
   className: _propTypes2.default.string,
+  /** Style attribute object to apply to the element */
   style: _propTypes2.default.object,
+  /** Elements to render as children */
   children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  /** Sets the item as the active panel */
   isActive: _propTypes2.default.bool,
+  /** An element to render as the 'next' button */
   nextButton: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.node])
 };
 

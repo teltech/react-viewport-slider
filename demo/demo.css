@@ -133,10 +133,12 @@ body {
 }
 
 .paginator-fixed {
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   top:0px;
   left:0px;
   width:100%;
-  height:50px;
+  height:25px;
   z-index:99;
 }

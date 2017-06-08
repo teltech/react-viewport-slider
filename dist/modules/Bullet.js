@@ -18,26 +18,32 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _SliderPaginator = require('./SliderPaginator');
+
+var _SliderPaginator2 = _interopRequireDefault(_SliderPaginator);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Bullet = function Bullet(props) {
-  // bullet for paginator
-  var children = props.children,
-      defaultStyle = props.defaultStyle;
+/**
+ * Bullet
+ *  
+ * @param {any} props 
+ * @returns 
+ */
+var Bullet = function Bullet(_ref) {
+  var index = _ref.index,
+      children = _ref.children,
+      defaultStyle = _ref.defaultStyle,
+      active = _ref.active,
+      onClick = _ref.onClick;
 
-
-  var style = {
-    display: 'block',
-    height: '20px',
-    width: '20px'
-  };
 
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    props.onClick(props.index, true);
+    onClick(index, true);
   };
 
-  var classes = (0, _classnames2.default)('viewport-slider-paginator-bullet', { 'is-active': props.active });
+  var classes = (0, _classnames2.default)('viewport-slider-paginator-bullet', { 'is-active': active });
 
   return _react2.default.createElement(
     'a',
@@ -45,21 +51,26 @@ var Bullet = function Bullet(props) {
       className: classes,
       onClick: handleClick
 
-    }, defaultStyle ? { style: style } : {}),
+    }, defaultStyle ? { style: _SliderPaginator2.default.bulletDefaultStyle } : {}),
     children
   );
 };
 
-Bullet.propTypes = {
-  active: _propTypes2.default.bool,
-  index: _propTypes2.default.number.isRequired,
-  onClick: _propTypes2.default.func,
-  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
-  defaultStyle: _propTypes2.default.bool
-};
-
 Bullet.defaultProps = {
   defaultStyle: true
+};
+
+Bullet.propTypes = {
+  /** Flag to set bullet active */
+  active: _propTypes2.default.bool,
+  /** Index to item panel */
+  index: _propTypes2.default.number.isRequired,
+  /** Click handler */
+  onClick: _propTypes2.default.func,
+  /** Element to set as children */
+  children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]),
+  /** Flag to indicate default style should be used */
+  defaultStyle: _propTypes2.default.bool
 };
 
 exports.default = Bullet;

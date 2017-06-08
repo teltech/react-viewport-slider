@@ -26,27 +26,51 @@ const ButtonNextItem3 = () => {
   );
 }
 
+SliderPaginator.defaultStyle = Object.assign({}, SliderPaginator.defaultStyle, {
+  top: '15%'  
+});
+SliderItem.defaultProps.style = Object.assign({}, SliderItem.defaultProps.style, {
+  border: '10px solid #CDCDCD'
+});
+
+
+const MyBullet= (props) => {
+  return (
+    <span>{props.children}</span>
+  );
+}
+
 class Demo extends React.Component {
   render() {
     return (
+
       <Slider
         className="ola"
         style={{backgroundColor: 'red'}}
         animateSpeed={2500}
       >
         <SliderPaginator 
-          className="paginator-fixed"
-          style={{backgroundColor: '#F00'}}
-          defaultStyle={true}
+          className="paginator-fixed"          
+          mergeStyle={false}
+          items={[
+            <MyBullet>1</MyBullet>,
+            <MyBullet>2</MyBullet>,
+            <MyBullet>3</MyBullet>,
+            <MyBullet>4</MyBullet>,
+            <MyBullet>5</MyBullet>
+            
+          ]}
         >
-          
           <SliderPaginatorItem>One</SliderPaginatorItem>
           <SliderPaginatorItem>Two</SliderPaginatorItem>
           <SliderPaginatorItem>Three</SliderPaginatorItem>
           <SliderPaginatorItem>Four</SliderPaginatorItem>
           <SliderPaginatorItem>Five</SliderPaginatorItem>
+          
         </SliderPaginator>
         
+        
+
         <SliderItem style={styleItem1}>
           <div className="content">Hello, world.</div>
         </SliderItem>
@@ -87,6 +111,7 @@ class Demo extends React.Component {
         </SliderItem>
 
       </Slider>
+      
     );
   }
 
@@ -97,9 +122,21 @@ ReactDOM.render(
   document.getElementById('demo')
 );
 /*
+<SliderPaginatorItem>One</SliderPaginatorItem>
+<SliderPaginatorItem>Two</SliderPaginatorItem>
+<SliderPaginatorItem>Three</SliderPaginatorItem>
+<SliderPaginatorItem>Four</SliderPaginatorItem>
+<SliderPaginatorItem>Five</SliderPaginatorItem>
 
-        
-        
 
-        
-*/
+
+items={[
+    <div>1</div>
+    ,<div>2</div>
+    ,<div>3</div>
+    ,<div>4</div>
+    ,<div>5</div>
+  ]
+
+
+      */

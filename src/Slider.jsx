@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import scrollToY from 'scroll-to-y';
-
+import _ from 'lodash';
 import SliderItem from './SliderItem';
 import Paginator from './Paginator';
 import SliderButton from './SliderButton';
@@ -13,13 +13,15 @@ import SliderPaginatorItem from './SliderPaginatorItem';
 
 
 /**
- * constructSlider
- * scope: private 
+ * buildChildrenToRender
  * 
- * Used to dynamicly build the slider
+ * Dynamicly builds the slider with its items
+ * Scope: private
  * 
+ * The function returned will be called on each child of Slider
+ * @returns function
  */
-function constructSlider() {
+function buildChildrenToRender() {
   const { countSliderItems } = this.state;
   let indexSliderItem = 0;    
 
@@ -31,12 +33,14 @@ function constructSlider() {
 
   // build children items
   // Will be called on each Slider child
-  const buildChildrenToRender = (child, index) => {
+  const iterateChild = (child, index) => {
     
     // check for SliderItem
-    if (child.type === SliderItem) {        
-      const propsClone = Object.create(child.props || {});
+    if (child.type === SliderItem) { 
+      const propsClone = _.cloneDeep(child.props || {});
       delete propsClone.children;
+      delete propsClone.isActive;
+      delete propsClone.nextButton;
       
       const ref = `slide-${ indexSliderItem }`;        
 
@@ -55,13 +59,14 @@ function constructSlider() {
         }, 
         nextButton.props.children
       );
-      //
-
+      
       return (
         <div 
           ref={ref}
           {...propsClone}
-          className={classNames(SliderItem.defaultProps.className, child.props.className)}
+          className={classNames(SliderItem.defaultProps.className, child.props.className
+            .replace(SliderItem.defaultProps.className,'')
+          )}
           style={Object.assign({}, SliderItem.defaultProps.style, child.props.style)}
         >
           {child.props.children}
@@ -73,52 +78,68 @@ function constructSlider() {
     }
     // check for SliderPaginator 
     else if (child.type === SliderPaginator) {
+      
       this.showPaginator = false;
-
-      if (!child.props.defaultStyle || countSliderItems>1) {
+      
+      let bullets = child.props.items || React.Children
+        .map(child.props.children, (childPaginator)=>{
+          if (childPaginator.type === SliderPaginatorItem) {
+            return childPaginator.props.children;
+          } else {
+            return null;
+          }
+        });
+      
+      if ( bullets || countSliderItems>1 ) {
         this.showPaginator = true;
 
-        let bullets = React.Children
-          .map(child.props.children, (childPaginator)=>{
-            if (childPaginator.type === SliderPaginatorItem) {
-              return childPaginator.props.children;
-            } else {
-              return null;
-            }
-          });
-        
-        let forceDafaultLayout = false;
+        let isDefaultStyle = false;
+
         if (bullets && bullets.length !== countSliderItems) {
-          forceDafaultLayout = true;
+          isDefaultStyle = true;
           if (console && console.warn) { 
             console.warn(`Number of 'SliderPaginatorItem' elements diffs from number of 'SliderItem'\nDefault layout will be applied`);
           }
           bullets = undefined;
         }
 
+        isDefaultStyle = isDefaultStyle || !bullets;
+
         if(!bullets) {
           bullets = Array.apply(null, {length: countSliderItems});          
         }
         
-        this.paginatorProps = {
-          className: child.props.className,
-          style: Object.assign({}, child.props.style),                  
+        const restProps = _.cloneDeep(child.props || {});
+        delete restProps.children;
+
+        this.paginatorProps = Object.assign({}, restProps, {
           onClick: this.setActive,
-          defaultStyle: forceDafaultLayout || child.props.defaultStyle,
+          defaultStyle: isDefaultStyle,
           bullets: bullets
-        }
+        });
       }
     } else {
       // any other child is rendered as is
       return (child);
     }
   }
-
-  return buildChildrenToRender.bind(this);
+  return iterateChild.bind(this);
 }
 
+/**
+ * Slider Component
+ * 
+ * @class Slider
+ * @extends {Component}
+ */
 class Slider extends Component {
 
+  /**
+   * Creates an instance of Slider.
+   * @param {any} props 
+   * 
+   * @memberof Slider
+   */
   constructor(props) {
     super(props);
     
@@ -151,7 +172,7 @@ class Slider extends Component {
 
     // build children
     this.childrenToRender = React.Children
-      .map(this.props.children, constructSlider.call(this));
+      .map(this.props.children, buildChildrenToRender.call(this));
 
     // no paginator declared use default
     if (!this.paginatorProps.bullets) {
@@ -163,13 +184,21 @@ class Slider extends Component {
     // scroll to the active item
     setTimeout(()=> {      
       this.isMounting = true;
-      this.scrollToPanel(this.state.activeIndex );      
+      this.scrollToPanel(this.state.activeIndex);      
     }, 100);
   }
   componentWillUnmount() {
     // remove scroll event listener
     window.removeEventListener('scroll', this.handleScroll);
   }
+  /**
+   * Scrolls to desired panel
+   * 
+   * @param {any} index 
+   * @param {any} callback 
+   * 
+   * @memberof Slider
+   */
   scrollToPanel(index, callback) {    
     this.isAnimating = true;
     scrollToY(
@@ -181,6 +210,13 @@ class Slider extends Component {
       }
     );    
   }
+  /**
+   * Window scroll listener
+   * 
+   * @returns 
+   * 
+   * @memberof Slider
+   */
   handleScroll() {
     if (this.isAnimating) {
       return;
@@ -207,6 +243,15 @@ class Slider extends Component {
     this.lastScroll = window.scrollY;
     this.isMounting = false;
   }
+  /**
+   * Updates the index for the active panel on state
+   * Called from the Paginator component or from the scroll handler
+   * 
+   * @param {any} index 
+   * @param {any} scrollTo 
+   * 
+   * @memberof Slider
+   */
   setActive(index, scrollTo) {
     this.setState({ activeIndex: index }, () => {
       if (scrollTo) { 
@@ -219,7 +264,9 @@ class Slider extends Component {
     
     return (
       <div 
-        className={classNames(Slider.defaultProps.className, className)}
+        className={classNames(Slider.defaultProps.className, className
+          .replace(Slider.defaultProps.className,'')
+        )}
         style={style}
       >
         {this.showPaginator && <Paginator
@@ -230,7 +277,6 @@ class Slider extends Component {
       </div>
     );
   }
-
 }
 
 Slider.defaultProps = {
@@ -239,15 +285,17 @@ Slider.defaultProps = {
 }
 
 Slider.propTypes = {
+  /** Css class to apply to the element */
   className: PropTypes.string,
+  /** Style attribute object to apply to the element */
   style: PropTypes.object,
+  /** children */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired,
+  /** sets the animation speed for the slider */
   animateSpeed: PropTypes.number
 };
 
-
 export default Slider;
-

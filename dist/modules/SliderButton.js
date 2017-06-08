@@ -18,16 +18,30 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SliderButton = function SliderButton(props) {
+/**
+ * SliderButton
+ * 
+ * @param {any} {className, onClick, style, children} 
+ * @returns 
+ */
+var SliderButton = function SliderButton(_ref) {
+  var className = _ref.className,
+      _onClick = _ref.onClick,
+      style = _ref.style,
+      children = _ref.children,
+      index = _ref.index;
+
   return _react2.default.createElement(
     'a',
-    { href: '#' /*{`#viewport-slide-${ props.index + 1 }`}*/
-      , className: (0, _classnames2.default)(SliderButton.defaultProps.className, props.className),
-      onClick: function onClick() {
-        return props.onClick(props.index + 1, true);
+    { href: '#',
+      className: (0, _classnames2.default)(SliderButton.defaultProps.className, className.replace(SliderButton.defaultProps.className, '')),
+      onClick: function onClick(event) {
+        event.preventDefault();
+        _onClick(index + 1, true);
       },
-      style: Object.assign({}, SliderButton.defaultProps.style, props.style) },
-    props.children
+      style: Object.assign({}, SliderButton.defaultProps.style, style)
+    },
+    children
   );
 };
 
@@ -44,9 +58,13 @@ SliderButton.defaultProps = {
 };
 
 SliderButton.propTypes = {
+  /** The panel index where the button appears */
   index: _propTypes2.default.number.isRequired,
+  /** Click handler */
   onClick: _propTypes2.default.func,
+  /** Css class to apply to he element */
   className: _propTypes2.default.string,
+  /** Style attribute object to apply to the element */
   style: _propTypes2.default.object
 };
 

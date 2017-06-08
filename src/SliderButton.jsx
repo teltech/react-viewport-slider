@@ -4,13 +4,25 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-const SliderButton = (props) => {
+/**
+ * SliderButton
+ * 
+ * @param {any} {className, onClick, style, children} 
+ * @returns 
+ */
+const SliderButton = ({className, onClick, style, children, index}) => {
   return (
-    <a href="#"/*{`#viewport-slide-${ props.index + 1 }`}*/
-      className={classNames(SliderButton.defaultProps.className, props.className)}
-      onClick={()=>props.onClick(props.index + 1, true)}
-      style={Object.assign({}, SliderButton.defaultProps.style, props.style)}>
-      {props.children}
+    <a href="#"
+      className={classNames(SliderButton.defaultProps.className, className
+        .replace(SliderButton.defaultProps.className,'')
+      )}
+      onClick={(event)=> {
+        event.preventDefault();
+        onClick(index + 1, true)
+      }}
+      style={Object.assign({}, SliderButton.defaultProps.style, style)}
+    >
+      {children}
     </a>
   );
 };
@@ -28,9 +40,13 @@ SliderButton.defaultProps = {
 }
 
 SliderButton.propTypes = {
+  /** The panel index where the button appears */
   index: PropTypes.number.isRequired,
+  /** Click handler */
   onClick: PropTypes.func,
+  /** Css class to apply to he element */
   className: PropTypes.string,
+  /** Style attribute object to apply to the element */
   style: PropTypes.object
 };
 

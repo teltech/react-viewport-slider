@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -28,20 +26,29 @@ var _SliderPaginator2 = _interopRequireDefault(_SliderPaginator);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Paginator
+ * 
+ * @param {any} props 
+ * @returns 
+ */
 var Paginator = function Paginator(props) {
-  // The internal and real paginator
   var className = props.className,
       style = props.style,
       defaultStyle = props.defaultStyle,
       activeIndex = props.activeIndex,
-      onClick = props.onClick;
+      onClick = props.onClick,
+      mergeStyle = props.mergeStyle;
 
+
+  var newStyle = Object.assign({}, mergeStyle ? Object.assign({}, _SliderPaginator2.default.defaultStyle, style) : style);
 
   return _react2.default.createElement(
     'div',
-    _extends({
-      className: (0, _classnames2.default)(_SliderPaginator2.default.defaultProps.className, defaultStyle ? '' : className)
-    }, defaultStyle ? { style: _SliderPaginator2.default.defaultProps.style } : style ? { style: style } : {}),
+    {
+      className: (0, _classnames2.default)(_SliderPaginator2.default.defaultProps.className, className.replace(_SliderPaginator2.default.defaultProps.className, '')),
+      style: newStyle
+    },
     props.bullets.map(function (item, index) {
       return _react2.default.createElement(
         _Bullet2.default,
@@ -58,18 +65,27 @@ var Paginator = function Paginator(props) {
   );
 };
 
-Paginator.propTypes = {
-  activeIndex: _propTypes2.default.number,
-  bullets: _propTypes2.default.array.isRequired,
-  onClick: _propTypes2.default.func,
-  defaultStyle: _propTypes2.default.bool,
-  className: _propTypes2.default.string,
-  style: _propTypes2.default.object
-};
-
 Paginator.defaultProps = {
   defaultStyle: true,
+  mergeStyle: true,
   bullets: []
+};
+
+Paginator.propTypes = {
+  /** Css class to apply to the element */
+  className: _propTypes2.default.string,
+  /** Style attribute object to apply to the element */
+  style: _propTypes2.default.object,
+  /** The active index panel */
+  activeIndex: _propTypes2.default.number,
+  /** Array with the bullets elements to display as paginator items */
+  bullets: _propTypes2.default.array.isRequired,
+  /** Click handler */
+  onClick: _propTypes2.default.func,
+  /** Flag to indicate that the default style will be applied */
+  defaultStyle: _propTypes2.default.bool,
+  /** Flag to indicate that the 'style' object passed in must be mergeed into the default */
+  mergeStyle: _propTypes2.default.bool
 };
 
 exports.default = Paginator;
