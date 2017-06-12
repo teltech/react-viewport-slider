@@ -155,6 +155,12 @@ class Slider extends Component {
       activeIndex: activeIndex === -1 ? 0 : activeIndex,
       countSliderItems: !this.props.children? 0 : this.props.children.filter(child => child.type === SliderItem).length
     };
+    
+    // set the scroll percent
+    this.scrollPercent = typeof props.scrollPercent === 'number'? 
+      {up: props.scrollPercent, down: props.scrollPercent }
+      :
+      Object.assign({}, props.scrollPercent);
 
     if (this.state.countSliderItems === 0) {
       if (console && console.warn) { 
@@ -165,8 +171,7 @@ class Slider extends Component {
     this.setActive = this.setActive.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.scrollToPanel = this.scrollToPanel.bind(this);
-    this.lastScroll = 0;
-
+    
     // set scroll event listener 
     window.addEventListener('scroll', this.handleScroll);
 
@@ -181,6 +186,20 @@ class Slider extends Component {
 
   }
   componentDidMount() {
+    // debugger;
+    // const aItems = Object.keys(this.refs).map(key => this.refs[key]);
+
+    // function getSumItemsHeightOffset(aItems, index, value) {      
+    //   return aItems.slice(0, index+1).reduce(function(acc, item) {
+    //     return acc + item.offsetHeight;
+    //   }, 0) - aItems[index].offsetHeight/value;
+    // }
+    // this.paginatorItemsHeightOffset = aItems.map((item, index)=>{
+    //   return index === 0? 0 : getSumItemsHeightOffset(aItems, index - 1, 2);
+    // })
+    
+
+
     // scroll to the active item
     setTimeout(()=> {      
       this.isMounting = true;
@@ -222,25 +241,36 @@ class Slider extends Component {
       return;
     }
     
+    /**
+     * Get sum off offsetHeight for all slider items previous to an index item
+     * decrement a specific amount of the last slider 
+     * @param {number} [value=0.5|[0.1,0.9]] - the amount in percentage of the slider index offsetHeight to be left to scroll
+     * when setting a different slider active 
+     * Ex: 0.5 - means that we will set the next slider after scroll 50% of the active index
+     */
+    function _getSumOffset(items, index, value) {
+      return items
+        .slice(0, index + 1)
+        .reduce(function(acc, item) {
+          return acc + item.offsetHeight;
+        }, 0) - items[index].offsetHeight*(value<0.1? 0.1 : value>0.9? 0.9 : value);
+    }
+    
+
     if (this.isMounting === false) { // on mounting dont change activeIndex
-      // up
-      if (
-        window.scrollY > this.lastScroll &&
-        window.innerHeight + window.scrollY >
-          ((window.innerHeight * (this.state.activeIndex+1)) + window.innerHeight/2)
-      ) {
+      const aItems = Object.keys(this.refs).map(key => this.refs[key]);
+      const valueToUpIndex = _getSumOffset(aItems, this.state.activeIndex, this.scrollPercent.down);
+      const valueToDownIndex = this.state.activeIndex>0? _getSumOffset(aItems, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
+
+      // up state (scroll down)
+      if (window.scrollY > valueToUpIndex) {
         this.setActive(this.state.activeIndex + 1);
-      // down
-      } else if (
-        window.scrollY < this.lastScroll &&
-        window.innerHeight + window.scrollY <
-          ((window.innerHeight * (this.state.activeIndex +1)) - window.innerHeight/1.5)
-      ) {
+      // down state (scroll up)
+      } else if (window.scrollY < valueToDownIndex) {
         this.setActive(this.state.activeIndex - 1);
       }
-    }    
-
-    this.lastScroll = window.scrollY;
+    }
+    
     this.isMounting = false;
   }
   /**
@@ -281,7 +311,8 @@ class Slider extends Component {
 
 Slider.defaultProps = {
   className: 'viewport-slider',
-  animateSpeed: 1000
+  animateSpeed: 1000,
+  scrollPercent: {up: 0.75, down: 0.25}
 }
 
 Slider.propTypes = {
@@ -295,7 +326,17 @@ Slider.propTypes = {
     PropTypes.node
   ]).isRequired,
   /** sets the animation speed for the slider */
-  animateSpeed: PropTypes.number
+  animateSpeed: PropTypes.number,
+  /** sets the scroll amount relative to slider offsetHeight to activate next/previous slider */
+  scrollPercent: PropTypes.oneOfType(
+    [
+      PropTypes.number,
+      PropTypes.shape({
+        up: PropTypes.number.isRequired,
+        down: PropTypes.number.isRequired
+      })
+    ]
+  ) 
 };
 
 export default Slider;

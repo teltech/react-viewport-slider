@@ -26,12 +26,12 @@ const ButtonNextItem3 = () => {
   );
 }
 
-SliderPaginator.defaultStyle = Object.assign({}, SliderPaginator.defaultStyle, {
-  top: '15%'  
-});
-SliderItem.defaultProps.style = Object.assign({}, SliderItem.defaultProps.style, {
-  border: '10px solid #CDCDCD'
-});
+// SliderPaginator.defaultStyle = Object.assign({}, SliderPaginator.defaultStyle, {
+//   top: '15%'  
+// });
+// SliderItem.defaultProps.style = Object.assign({}, SliderItem.defaultProps.style, {
+//   border: '10px solid #CDCDCD'
+// });
 
 
 const MyBullet= (props) => {
@@ -49,25 +49,7 @@ class Demo extends React.Component {
         style={{backgroundColor: 'red'}}
         animateSpeed={2500}
       >
-        <SliderPaginator 
-          className="paginator-fixed"          
-          mergeStyle={false}
-          items={[
-            <MyBullet>1</MyBullet>,
-            <MyBullet>2</MyBullet>,
-            <MyBullet>3</MyBullet>,
-            <MyBullet>4</MyBullet>,
-            <MyBullet>5</MyBullet>
-            
-          ]}
-        >
-          <SliderPaginatorItem>One</SliderPaginatorItem>
-          <SliderPaginatorItem>Two</SliderPaginatorItem>
-          <SliderPaginatorItem>Three</SliderPaginatorItem>
-          <SliderPaginatorItem>Four</SliderPaginatorItem>
-          <SliderPaginatorItem>Five</SliderPaginatorItem>
-          
-        </SliderPaginator>
+        <SliderPaginator/>
         
         
 
@@ -75,7 +57,7 @@ class Demo extends React.Component {
           <div className="content">Hello, world.</div>
         </SliderItem>
         
-        <SliderItem isActive
+        <SliderItem 
           style={styleItem2}
           className="classItem2"
         >
@@ -122,6 +104,29 @@ ReactDOM.render(
   document.getElementById('demo')
 );
 /*
+
+<SliderPaginator 
+          className="paginator-fixed"          
+          mergeStyle={false}
+          items={[
+            <MyBullet>1</MyBullet>,
+            <MyBullet>2</MyBullet>,
+            <MyBullet>3</MyBullet>,
+            <MyBullet>4</MyBullet>,
+            <MyBullet>5</MyBullet>
+            
+          ]}
+        >
+          <SliderPaginatorItem>One</SliderPaginatorItem>
+          <SliderPaginatorItem>Two</SliderPaginatorItem>
+          <SliderPaginatorItem>Three</SliderPaginatorItem>
+          <SliderPaginatorItem>Four</SliderPaginatorItem>
+          <SliderPaginatorItem>Five</SliderPaginatorItem>
+          
+        </SliderPaginator>
+
+
+
 <SliderPaginatorItem>One</SliderPaginatorItem>
 <SliderPaginatorItem>Two</SliderPaginatorItem>
 <SliderPaginatorItem>Three</SliderPaginatorItem>

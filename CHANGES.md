@@ -61,6 +61,7 @@ Will render to this:
   [className:string=<'viewport-slider' + className | 'viewport-slider'>]
   [style:object]
   [animateSpeed:number=<1000>]
+  [scrollPercent:number|object=<{up: 0.75, down: 0.25}>]
 >
   <SliderItem
     [isActive:bool=<false>]
@@ -79,6 +80,7 @@ Will render to this:
   <SliderPaginator
     [className:string=<'viewport-slider-paginator' + className>]  
     [style:object=<merge(SliderPaginator.defaultProps.style, style)>]
+    [mergeStyle:bool=<true>]
     [items:[node]]
   >
     <SliderPaginatorItem>{children}</SliderPaginatorItem>  
@@ -91,6 +93,14 @@ Will render to this:
 
 #### Notes
 
+- Slider:
+
+  - scrollPercent - an amount relative to the offsetHeight of a slider item (its dom element), used to specify how/when to change the active slider on scroling the window viewport.
+    - number - [0.1,0.9] - equivalent to 10% to 90% of offsetHeight of an element
+      - when scrolling down, the active slider will increment when the amount that is visible of the active element is less than number
+      - when scrolling up, the active slider will decrement when the amount that is visible of the previous element is greater than number
+      - when set as single number that value will be applied both to scroll down and up
+    - {down: \<number>, up: \<number>}
 - SliderPaginator:
 
   - If not specified the default paginator layout will be used (bullets on right/center); which is the same to use <SliderPaginator />
