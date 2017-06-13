@@ -95,12 +95,14 @@ Will render to this:
 
 - Slider:
 
-  - scrollPercent - an amount relative to the offsetHeight of a slider item (its dom element), used to specify how/when to change the active slider on scroling the window viewport.
+  - prop 'scrollPercent' - an amount relative to the offsetHeight of a slider item (its dom element), used to specify how/when to change the active slider on scroling the window viewport.
     - number - [0.1,0.9] - equivalent to 10% to 90% of offsetHeight of an element
-      - when scrolling down, the active slider will increment when the amount that is visible of the active element is less than number
-      - when scrolling up, the active slider will decrement when the amount that is visible of the previous element is greater than number
+      - when scrolling down, the next slider will be activated when the amount that is visible of the active slider is less than number
+      - when scrolling up, the previous slider will be activated when its visible part is greater than number
       - when set as single number that value will be applied both to scroll down and up
+      - if a number outside the limits is set the limits will be used
     - {down: \<number>, up: \<number>}
+
 - SliderPaginator:
 
   - If not specified the default paginator layout will be used (bullets on right/center); which is the same to use <SliderPaginator />

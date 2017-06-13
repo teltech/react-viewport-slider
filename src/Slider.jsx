@@ -42,8 +42,6 @@ function buildChildrenToRender() {
       delete propsClone.isActive;
       delete propsClone.nextButton;
       
-      const ref = `slide-${ indexSliderItem }`;        
-
       indexSliderItem+=1;
       
       // customize next button
@@ -62,11 +60,9 @@ function buildChildrenToRender() {
       
       return (
         <div 
-          ref={ref}
+          ref={el => this.domRefs.push(el)}
           {...propsClone}
-          className={classNames(SliderItem.defaultProps.className, child.props.className
-            .replace(SliderItem.defaultProps.className,'')
-          )}
+          className={classNames(SliderItem.defaultProps.className, child.props.className.replace(SliderItem.defaultProps.className,''))}
           style={Object.assign({}, SliderItem.defaultProps.style, child.props.style)}
         >
           {child.props.children}
@@ -176,6 +172,8 @@ class Slider extends Component {
     window.addEventListener('scroll', this.handleScroll);
 
     // build children
+    this.domRefs = [];
+
     this.childrenToRender = React.Children
       .map(this.props.children, buildChildrenToRender.call(this));
 
@@ -186,20 +184,6 @@ class Slider extends Component {
 
   }
   componentDidMount() {
-    // debugger;
-    // const aItems = Object.keys(this.refs).map(key => this.refs[key]);
-
-    // function getSumItemsHeightOffset(aItems, index, value) {      
-    //   return aItems.slice(0, index+1).reduce(function(acc, item) {
-    //     return acc + item.offsetHeight;
-    //   }, 0) - aItems[index].offsetHeight/value;
-    // }
-    // this.paginatorItemsHeightOffset = aItems.map((item, index)=>{
-    //   return index === 0? 0 : getSumItemsHeightOffset(aItems, index - 1, 2);
-    // })
-    
-
-
     // scroll to the active item
     setTimeout(()=> {      
       this.isMounting = true;
@@ -221,7 +205,7 @@ class Slider extends Component {
   scrollToPanel(index, callback) {    
     this.isAnimating = true;
     scrollToY(
-      this.refs[`slide-${ index }`].offsetTop,
+      this.domRefs[index].offsetTop,
       this.props.animateSpeed,
       'easeInOutQuint',
       () => {
@@ -258,9 +242,8 @@ class Slider extends Component {
     
 
     if (this.isMounting === false) { // on mounting dont change activeIndex
-      const aItems = Object.keys(this.refs).map(key => this.refs[key]);
-      const valueToUpIndex = _getSumOffset(aItems, this.state.activeIndex, this.scrollPercent.down);
-      const valueToDownIndex = this.state.activeIndex>0? _getSumOffset(aItems, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
+      const valueToUpIndex = _getSumOffset(this.domRefs, this.state.activeIndex, this.scrollPercent.down);
+      const valueToDownIndex = this.state.activeIndex>0? _getSumOffset(this.domRefs, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
 
       // up state (scroll down)
       if (window.scrollY > valueToUpIndex) {

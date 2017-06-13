@@ -917,8 +917,6 @@ function buildChildrenToRender() {
       delete propsClone.isActive;
       delete propsClone.nextButton;
 
-      var ref = 'slide-' + indexSliderItem;
-
       indexSliderItem += 1;
 
       // customize next button
@@ -932,7 +930,9 @@ function buildChildrenToRender() {
       return _react2.default.createElement(
         'div',
         _extends({
-          ref: ref
+          ref: function ref(el) {
+            return _this.domRefs.push(el);
+          }
         }, propsClone, {
           className: (0, _classnames2.default)(_SliderItem2.default.defaultProps.className, child.props.className.replace(_SliderItem2.default.defaultProps.className, '')),
           style: Object.assign({}, _SliderItem2.default.defaultProps.style, child.props.style)
@@ -1026,6 +1026,9 @@ var Slider = function (_Component) {
       }).length
     };
 
+    // set the scroll percent
+    _this2.scrollPercent = typeof props.scrollPercent === 'number' ? { up: props.scrollPercent, down: props.scrollPercent } : Object.assign({}, props.scrollPercent);
+
     if (_this2.state.countSliderItems === 0) {
       if (console && console.warn) {
         console.warn('No \'SliderItem\' on children of \'Slider\'');
@@ -1035,12 +1038,13 @@ var Slider = function (_Component) {
     _this2.setActive = _this2.setActive.bind(_this2);
     _this2.handleScroll = _this2.handleScroll.bind(_this2);
     _this2.scrollToPanel = _this2.scrollToPanel.bind(_this2);
-    _this2.lastScroll = 0;
 
     // set scroll event listener 
     window.addEventListener('scroll', _this2.handleScroll);
 
     // build children
+    _this2.domRefs = [];
+
     _this2.childrenToRender = _react2.default.Children.map(_this2.props.children, buildChildrenToRender.call(_this2));
 
     // no paginator declared use default
@@ -1083,7 +1087,7 @@ var Slider = function (_Component) {
       var _this4 = this;
 
       this.isAnimating = true;
-      (0, _scrollToY2.default)(this.refs['slide-' + index].offsetTop, this.props.animateSpeed, 'easeInOutQuint', function () {
+      (0, _scrollToY2.default)(this.domRefs[index].offsetTop, this.props.animateSpeed, 'easeInOutQuint', function () {
         _this4.isAnimating = false;
       });
     }
@@ -1102,18 +1106,33 @@ var Slider = function (_Component) {
         return;
       }
 
+      /**
+       * Get sum off offsetHeight for all slider items previous to an index item
+       * decrement a specific amount of the last slider 
+       * @param {number} [value=0.5|[0.1,0.9]] - the amount in percentage of the slider index offsetHeight to be left to scroll
+       * when setting a different slider active 
+       * Ex: 0.5 - means that we will set the next slider after scroll 50% of the active index
+       */
+      function _getSumOffset(items, index, value) {
+        return items.slice(0, index + 1).reduce(function (acc, item) {
+          return acc + item.offsetHeight;
+        }, 0) - items[index].offsetHeight * (value < 0.1 ? 0.1 : value > 0.9 ? 0.9 : value);
+      }
+
       if (this.isMounting === false) {
         // on mounting dont change activeIndex
-        // up
-        if (window.scrollY > this.lastScroll && window.innerHeight + window.scrollY > window.innerHeight * (this.state.activeIndex + 1) + window.innerHeight / 2) {
+        var valueToUpIndex = _getSumOffset(this.domRefs, this.state.activeIndex, this.scrollPercent.down);
+        var valueToDownIndex = this.state.activeIndex > 0 ? _getSumOffset(this.domRefs, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
+
+        // up state (scroll down)
+        if (window.scrollY > valueToUpIndex) {
           this.setActive(this.state.activeIndex + 1);
-          // down
-        } else if (window.scrollY < this.lastScroll && window.innerHeight + window.scrollY < window.innerHeight * (this.state.activeIndex + 1) - window.innerHeight / 1.5) {
+          // down state (scroll up)
+        } else if (window.scrollY < valueToDownIndex) {
           this.setActive(this.state.activeIndex - 1);
         }
       }
 
-      this.lastScroll = window.scrollY;
       this.isMounting = false;
     }
     /**
@@ -1164,7 +1183,8 @@ var Slider = function (_Component) {
 
 Slider.defaultProps = {
   className: 'viewport-slider',
-  animateSpeed: 1000
+  animateSpeed: 1000,
+  scrollPercent: { up: 0.75, down: 0.25 }
 };
 
 Slider.propTypes = {
@@ -1175,7 +1195,12 @@ Slider.propTypes = {
   /** children */
   children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node]).isRequired,
   /** sets the animation speed for the slider */
-  animateSpeed: _propTypes2.default.number
+  animateSpeed: _propTypes2.default.number,
+  /** sets the scroll amount relative to slider offsetHeight to activate next/previous slider */
+  scrollPercent: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.shape({
+    up: _propTypes2.default.number.isRequired,
+    down: _propTypes2.default.number.isRequired
+  })])
 };
 
 exports.default = Slider;
