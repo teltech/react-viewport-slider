@@ -14,16 +14,16 @@ import SliderPaginatorItem from './SliderPaginatorItem';
 
 /**
  * buildChildrenToRender
- * 
+ *
  * Dynamicly builds the slider with its items
  * Scope: private
- * 
+ *
  * The function returned will be called on each child of Slider
  * @returns function
  */
 function buildChildrenToRender() {
   const { countSliderItems } = this.state;
-  let indexSliderItem = 0;    
+  let indexSliderItem = 0;
 
   // set default paginator props
   this.paginatorProps = {
@@ -34,35 +34,35 @@ function buildChildrenToRender() {
   // build children items
   // Will be called on each Slider child
   const iterateChild = (child, index) => {
-    
+
     // check for SliderItem
-    if (child.type === SliderItem) { 
+    if (child.type === SliderItem) {
       const propsClone = _.cloneDeep(child.props || {});
       delete propsClone.children;
       delete propsClone.isActive;
       delete propsClone.nextButton;
-      
-      indexSliderItem+=1;
-      
+
+      indexSliderItem += 1;
+
       // customize next button
       let nextButton = child.props.nextButton.type === SliderButton ?
-          child.props.nextButton :
-          React.cloneElement(SliderItem.defaultProps.nextButton, null, child.props.nextButton)
-        
+        child.props.nextButton :
+        React.cloneElement(SliderItem.defaultProps.nextButton, null, child.props.nextButton)
+
       nextButton = React.cloneElement(
         nextButton,
         {
-          index: indexSliderItem-1,
+          index: indexSliderItem - 1,
           onClick: this.setActive
-        }, 
+        },
         nextButton.props.children
       );
-      
+
       return (
-        <div 
+        <div
           ref={el => this.domRefs.push(el)}
           {...propsClone}
-          className={classNames(SliderItem.defaultProps.className, child.props.className.replace(SliderItem.defaultProps.className,''))}
+          className={classNames(SliderItem.defaultProps.className, child.props.className.replace(SliderItem.defaultProps.className, ''))}
           style={Object.assign({}, SliderItem.defaultProps.style, child.props.style)}
         >
           {child.props.children}
@@ -70,30 +70,30 @@ function buildChildrenToRender() {
           }
         </div>
       );
-    
+
     }
-    // check for SliderPaginator 
+    // check for SliderPaginator
     else if (child.type === SliderPaginator) {
-      
+
       this.showPaginator = false;
-      
+
       let bullets = child.props.items || React.Children
-        .map(child.props.children, (childPaginator)=>{
+        .map(child.props.children, (childPaginator) => {
           if (childPaginator.type === SliderPaginatorItem) {
             return childPaginator.props.children;
           } else {
             return null;
           }
         });
-      
-      if ( bullets || countSliderItems>1 ) {
+
+      if (bullets || countSliderItems > 1) {
         this.showPaginator = true;
 
         let isDefaultStyle = false;
 
         if (bullets && bullets.length !== countSliderItems) {
           isDefaultStyle = true;
-          if (console && console.warn) { 
+          if (console && console.warn) {
             console.warn(`Number of 'SliderPaginatorItem' elements diffs from number of 'SliderItem'\nDefault layout will be applied`);
           }
           bullets = undefined;
@@ -101,10 +101,10 @@ function buildChildrenToRender() {
 
         isDefaultStyle = isDefaultStyle || !bullets;
 
-        if(!bullets) {
-          bullets = Array.apply(null, {length: countSliderItems});          
+        if (!bullets) {
+          bullets = Array.apply(null, { length: countSliderItems });
         }
-        
+
         const restProps = _.cloneDeep(child.props || {});
         delete restProps.children;
 
@@ -124,7 +124,7 @@ function buildChildrenToRender() {
 
 /**
  * Slider Component
- * 
+ *
  * @class Slider
  * @extends {Component}
  */
@@ -132,34 +132,34 @@ class Slider extends Component {
 
   /**
    * Creates an instance of Slider.
-   * @param {any} props 
-   * 
+   * @param {any} props
+   *
    * @memberof Slider
    */
   constructor(props) {
     super(props);
-    
+
     // set the default item to activate based on isActive prop of SliderItem's
-    const activeIndex = !this.props.children? 0 : this.props.children
+    const activeIndex = !this.props.children ? 0 : this.props.children
       .filter(child => child.type === SliderItem)
-      .reduce(function(value, child, index) {
+      .reduce(function (value, child, index) {
         return child.props.isActive && value === -1 ? index : value;
       }, -1);
-    
+
     // set initial state
-    this.state = { 
+    this.state = {
       activeIndex: activeIndex === -1 ? 0 : activeIndex,
-      countSliderItems: !this.props.children? 0 : this.props.children.filter(child => child.type === SliderItem).length
+      countSliderItems: !this.props.children ? 0 : this.props.children.filter(child => child.type === SliderItem).length
     };
-    
+
     // set the scroll percent
-    this.scrollPercent = typeof props.scrollPercent === 'number'? 
-      {up: props.scrollPercent, down: props.scrollPercent }
+    this.scrollPercent = typeof props.scrollPercent === 'number' ?
+      { up: props.scrollPercent, down: props.scrollPercent }
       :
       Object.assign({}, props.scrollPercent);
 
     if (this.state.countSliderItems === 0) {
-      if (console && console.warn) { 
+      if (console && console.warn) {
         console.warn(`No 'SliderItem' on children of 'Slider'`);
       }
     }
@@ -167,8 +167,8 @@ class Slider extends Component {
     this.setActive = this.setActive.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.scrollToPanel = this.scrollToPanel.bind(this);
-    
-    // set scroll event listener 
+
+    // set scroll event listener
     window.addEventListener('scroll', this.handleScroll);
 
     // build children
@@ -179,15 +179,15 @@ class Slider extends Component {
 
     // no paginator declared use default
     if (!this.paginatorProps.bullets) {
-      this.paginatorProps.bullets = Array.apply(null, {length: this.state.countSliderItems});
+      this.paginatorProps.bullets = Array.apply(null, { length: this.state.countSliderItems });
     }
 
   }
   componentDidMount() {
     // scroll to the active item
-    setTimeout(()=> {      
+    setTimeout(() => {
       this.isMounting = true;
-      this.scrollToPanel(this.state.activeIndex);      
+      this.scrollToPanel(this.state.activeIndex);
     }, 100);
   }
   componentWillUnmount() {
@@ -196,96 +196,105 @@ class Slider extends Component {
   }
   /**
    * Scrolls to desired panel
-   * 
-   * @param {any} index 
-   * @param {any} callback 
-   * 
+   *
+   * @param {any} index
+   * @param {any} callback
+   *
    * @memberof Slider
    */
-  scrollToPanel(index, callback) {    
+  scrollToPanel(index, callback) {
     this.isAnimating = true;
     scrollToY(
       this.domRefs[index].offsetTop,
       this.props.animateSpeed,
       'easeInOutQuint',
       () => {
-        this.isAnimating = false;        
+        this.isAnimating = false;
       }
-    );    
+    );
   }
   /**
    * Window scroll listener
-   * 
-   * @returns 
-   * 
+   *
+   * @returns
+   *
    * @memberof Slider
    */
   handleScroll() {
     if (this.isAnimating) {
       return;
     }
-    
+
     /**
      * Get sum off offsetHeight for all slider items previous to an index item
-     * decrement a specific amount of the last slider 
+     * decrement a specific amount of the last slider
      * @param {number} [value=0.5|[0.1,0.9]] - the amount in percentage of the slider index offsetHeight to be left to scroll
-     * when setting a different slider active 
+     * when setting a different slider active
      * Ex: 0.5 - means that we will set the next slider after scroll 50% of the active index
      */
     function _getSumOffset(items, index, value) {
       return items
         .slice(0, index + 1)
-        .reduce(function(acc, item) {
+        .reduce(function (acc, item) {
           return acc + item.offsetHeight;
-        }, 0) - items[index].offsetHeight*(value<0.1? 0.1 : value>0.9? 0.9 : value);
+        }, 0) - items[index].offsetHeight * (value < 0.1 ? 0.1 : value > 0.9 ? 0.9 : value);
     }
-    
+
 
     if (this.isMounting === false) { // on mounting dont change activeIndex
       const valueToUpIndex = _getSumOffset(this.domRefs, this.state.activeIndex, this.scrollPercent.down);
-      const valueToDownIndex = this.state.activeIndex>0? _getSumOffset(this.domRefs, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
+      const valueToDownIndex = this.state.activeIndex > 0 ? _getSumOffset(this.domRefs, this.state.activeIndex - 1, this.scrollPercent.up) : 0;
 
       // up state (scroll down)
       if (window.scrollY > valueToUpIndex) {
         this.setActive(this.state.activeIndex + 1);
-      // down state (scroll up)
+        // down state (scroll up)
       } else if (window.scrollY < valueToDownIndex) {
         this.setActive(this.state.activeIndex - 1);
       }
     }
-    
+
     this.isMounting = false;
   }
   /**
    * Updates the index for the active panel on state
    * Called from the Paginator component or from the scroll handler
-   * 
-   * @param {any} index 
-   * @param {any} scrollTo 
-   * 
+   *
+   * @param {any} index
+   * @param {any} scrollTo
+   *
    * @memberof Slider
    */
   setActive(index, scrollTo) {
     this.setState({ activeIndex: index }, () => {
-      if (scrollTo) { 
+      if (scrollTo) {
         this.scrollToPanel(index);
+
+        var setActivePanelEvent = new CustomEvent('set-active-panel', {
+          detail: { index: index },
+          bubbles: true
+        });
+
+        // Send custom event to the parent
+        window.dispatchEvent(setActivePanelEvent);
       }
     });
   }
-  render() {    
-    const {className, style} = this.props;
-    
+  render() {
+    const { className, style } = this.props;
+
     return (
-      <div 
+      <div
         className={classNames(Slider.defaultProps.className, className
-          .replace(Slider.defaultProps.className,'')
+          .replace(Slider.defaultProps.className, '')
         )}
         style={style}
       >
         {this.showPaginator && <Paginator
           {...this.paginatorProps}
-          activeIndex = {this.state.activeIndex}
-        />}            
+          className={'panel-' + this.state.activeIndex}
+          activeIndex={this.state.activeIndex}
+        />}
         {this.childrenToRender}
       </div>
     );
@@ -295,7 +304,7 @@ class Slider extends Component {
 Slider.defaultProps = {
   className: 'viewport-slider',
   animateSpeed: 1000,
-  scrollPercent: {up: 0.75, down: 0.25}
+  scrollPercent: { up: 0.75, down: 0.25 }
 }
 
 Slider.propTypes = {
@@ -319,7 +328,7 @@ Slider.propTypes = {
         down: PropTypes.number.isRequired
       })
     ]
-  ) 
+  )
 };
 
 export default Slider;

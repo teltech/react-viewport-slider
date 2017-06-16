@@ -5,12 +5,12 @@ import SliderPaginatorItem from './SliderPaginatorItem';
 
 /**
  * SliderPaginator
- * 
- * @returns 
+ *
+ * @returns
  */
 const SliderPaginator = () => {
   // nothing to render, the real thing is made in the Slider
-  // SliderPaginator is just a semantic abstraction for the user 
+  // SliderPaginator is just a semantic abstraction for the user
   return null;
 };
 
@@ -30,7 +30,7 @@ SliderPaginator.bulletDefaultStyle = {
 };
 
 SliderPaginator.defaultProps = {
-  className: 'viewport-slider-paginator',  
+  className: 'viewport-slider-paginator',
   style: {},
   mergeStyle: true
 };
@@ -41,8 +41,8 @@ SliderPaginator.propTypes = {
   /** Style attribute object to apply to the element */
   style: PropTypes.object,
   /** Flag to indicate that the 'style' is to be merged into the 'defaultStyle' */
-  mergeStyle: PropTypes.bool,  
-  /** Array of element items to apply as paginator items 
+  mergeStyle: PropTypes.bool,
+  /** Array of element items to apply as paginator items
       Takes precendence to the SliderPaginatorItem passed in as children
   */
   items: PropTypes.arrayOf(PropTypes.node),

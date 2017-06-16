@@ -12,52 +12,70 @@ import { Slider, SliderItem, SliderButton, SliderPaginator, SliderPaginatorItem 
 const wallpaper = 'http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-164335.png';
 
 const styleItem1 = { backgroundColor: '#a2d7c7', height: '100vh' };
-const styleItem2 = { backgroundColor: '#353330', marginLeft: 250, width:'calc( 100% - 250px)', height: '100vh' };
+const styleItem2 = { backgroundColor: '#353330', marginLeft: 250, width: 'calc( 100% - 250px)', height: '100vh' };
 const styleItem4 = { backgroundColor: '#b2d7c7', height: '100vh' };
 const styleItem5 = { color: '#333', height: '100vh' };
 
 const ButtonNextItem3 = () => {
   return (
-    <div style={{width:300, height: 150, backgroundColor: '#aa0', color: '#000', textAlign: 'center'}}>
-      <div style={{top: '50%', left: '50%', position: 'absolute', transform: 'translate(-50%, -50%)'}}>
+    <div style={{ width: 300, height: 150, backgroundColor: '#aa0', color: '#000', textAlign: 'center' }}>
+      <div style={{ top: '50%', left: '50%', position: 'absolute', transform: 'translate(-50%, -50%)' }}>
         go down again!
-      </div>      
+      </div>
     </div>
   );
 }
 
 // SliderPaginator.defaultStyle = Object.assign({}, SliderPaginator.defaultStyle, {
-//   top: '15%'  
+//   top: '15%'
 // });
 // SliderItem.defaultProps.style = Object.assign({}, SliderItem.defaultProps.style, {
 //   border: '10px solid #CDCDCD'
 // });
 
 
-const MyBullet= (props) => {
+const MyBullet = (props) => {
   return (
     <span>{props.children}</span>
   );
 }
 
 class Demo extends React.Component {
+  constructor(props) {
+    super(props);
+
+
+  }
+  componentDidMount() {
+    // scroll to the active item
+    // setTimeout(() => {
+    //   this.isMounting = true;
+    //   this.scrollToPanel(this.state.activeIndex);
+    // }, 100);
+
+
+    window.addEventListener('set-active-panel', function (e) {
+      console.log(e.detail);
+    });
+  }
+
   render() {
     return (
 
       <Slider
         className="ola"
-        style={{backgroundColor: 'red'}}
+        style={{ backgroundColor: 'red' }}
         animateSpeed={2500}
       >
-        <SliderPaginator/>
-        
-        
+        <SliderPaginator />
+
+
 
         <SliderItem style={styleItem1}>
           <div className="content">Hello, world.</div>
         </SliderItem>
-        
-        <SliderItem 
+
+        <SliderItem
           style={styleItem2}
           className="classItem2"
         >
@@ -74,15 +92,15 @@ class Demo extends React.Component {
           <div>I have a different next!</div>
         </SliderItem>
 
-        <SliderItem 
+        <SliderItem
           style={styleItem4}
           nextButton={
             <SliderButton className='button4'>^</SliderButton>
           }
         >
-          <div className="content">Me too!</div>          
+          <div className="content">Me too!</div>
         </SliderItem>
-        
+
         <SliderItem style={styleItem5}>
           <div className="content love">
             <i className="fa fa-heart"></i>
@@ -93,7 +111,7 @@ class Demo extends React.Component {
         </SliderItem>
 
       </Slider>
-      
+
     );
   }
 
@@ -105,8 +123,8 @@ ReactDOM.render(
 );
 /*
 
-<SliderPaginator 
-          className="paginator-fixed"          
+<SliderPaginator
+          className="paginator-fixed"
           mergeStyle={false}
           items={[
             <MyBullet>1</MyBullet>,
@@ -114,7 +132,7 @@ ReactDOM.render(
             <MyBullet>3</MyBullet>,
             <MyBullet>4</MyBullet>,
             <MyBullet>5</MyBullet>
-            
+
           ]}
         >
           <SliderPaginatorItem>One</SliderPaginatorItem>
@@ -122,7 +140,7 @@ ReactDOM.render(
           <SliderPaginatorItem>Three</SliderPaginatorItem>
           <SliderPaginatorItem>Four</SliderPaginatorItem>
           <SliderPaginatorItem>Five</SliderPaginatorItem>
-          
+
         </SliderPaginator>
 
 
