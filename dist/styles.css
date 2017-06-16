@@ -1,0 +1,62 @@
+.viewport-slider-item {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+}
+
+.viewport-slider-button {
+  border: 1px solid #676161;
+  color: #3a2a2a;
+  cursor: pointer;
+  opacity: 0.75;
+  padding: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: opacity .35s;
+  transition: opacity .35s;
+  font-size: 1.15em;
+  letter-spacing: 0.5em;
+}
+
+.viewport-slider-button:hover {
+  opacity: 1;
+}
+
+.viewport-slider-paginator {
+  background-color: #ccc;
+  border: 1px solid #fff;
+  -webkit-box-shadow: 0 0 2px #ccc;
+          box-shadow: 0 0 2px #ccc;
+}
+
+.viewport-slider-paginator-bullet {
+  background: #999;
+  cursor: pointer;
+  opacity: .4;
+  -webkit-transition: opacity .35s;
+  transition: opacity .35s;
+}
+
+.viewport-slider-paginator-bullet.is-active:hover {
+  cursor: no-drop;
+}
+.viewport-slider-paginator-bullet:hover:not(.is-active) {
+  opacity: .6;
+}
+
+.viewport-slider-paginator-bullet.is-active {
+  background: #fff;
+  opacity: 1;
+}

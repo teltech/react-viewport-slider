@@ -1,38 +1,60 @@
 'use strict';
 
 import classNames from 'classnames';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Bullet = (props) => {
+import SliderPaginator from './SliderPaginator';
 
-  const style = {
-    display: 'block',
-    height: '20px',
-    width: '20px'
-  }
-
-  const handleClick = () => {
-    props.onClick(props.index, true);
+/**
+ * Bullet
+ *  
+ * @param {any} props 
+ * @returns 
+ */
+const Bullet = ({index, children, defaultStyle, active, onClick}) => {
+  
+  const handleClick = (event) => {
+    event.preventDefault();
+    onClick(index, true);
   };
 
   const classes = classNames(
     'viewport-slider-paginator-bullet',
-    { 'is-active': props.active }
-  )
+    { 'is-active': active }
+  );
 
   return (
-    <a href={`#viewport-slide-${props.index}`}
+    <a href="#"
       className={classes}
       onClick={handleClick}
-      style={style} />
+      
+      {...defaultStyle ? {style:SliderPaginator.bulletDefaultStyle} : {}}
+    >
+      {children}
+    </a>
   );
 
 };
 
+Bullet.defaultProps = {
+  defaultStyle: true
+}
+
 Bullet.propTypes = {
+  /** Flag to set bullet active */
   active: PropTypes.bool,
+  /** Index to item panel */
   index: PropTypes.number.isRequired,
-  onClick: PropTypes.func
+  /** Click handler */
+  onClick: PropTypes.func,
+  /** Element to set as children */
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  /** Flag to indicate default style should be used */
+  defaultStyle: PropTypes.bool
 };
 
 export default Bullet;
