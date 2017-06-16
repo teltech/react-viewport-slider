@@ -20,12 +20,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * SliderPaginator
- * 
- * @returns 
+ *
+ * @returns
  */
 var SliderPaginator = function SliderPaginator() {
   // nothing to render, the real thing is made in the Slider
-  // SliderPaginator is just a semantic abstraction for the user 
+  // SliderPaginator is just a semantic abstraction for the user
   return null;
 };
 
@@ -57,7 +57,7 @@ SliderPaginator.propTypes = {
   style: _proptypesUtil2.default.object,
   /** Flag to indicate that the 'style' is to be merged into the 'defaultStyle' */
   mergeStyle: _proptypesUtil2.default.bool,
-  /** Array of element items to apply as paginator items 
+  /** Array of element items to apply as paginator items
       Takes precendence to the SliderPaginatorItem passed in as children
   */
   items: _proptypesUtil2.default.arrayOf(_proptypesUtil2.default.node),

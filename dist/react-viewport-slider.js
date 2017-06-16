@@ -336,12 +336,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * SliderPaginator
- * 
- * @returns 
+ *
+ * @returns
  */
 var SliderPaginator = function SliderPaginator() {
   // nothing to render, the real thing is made in the Slider
-  // SliderPaginator is just a semantic abstraction for the user 
+  // SliderPaginator is just a semantic abstraction for the user
   return null;
 };
 
@@ -373,7 +373,7 @@ SliderPaginator.propTypes = {
   style: _proptypesUtil2.default.object,
   /** Flag to indicate that the 'style' is to be merged into the 'defaultStyle' */
   mergeStyle: _proptypesUtil2.default.bool,
-  /** Array of element items to apply as paginator items 
+  /** Array of element items to apply as paginator items
       Takes precendence to the SliderPaginatorItem passed in as children
   */
   items: _proptypesUtil2.default.arrayOf(_proptypesUtil2.default.node),
@@ -886,10 +886,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 /**
  * buildChildrenToRender
- * 
+ *
  * Dynamicly builds the slider with its items
  * Scope: private
- * 
+ *
  * The function returned will be called on each child of Slider
  * @returns function
  */
@@ -941,7 +941,7 @@ function buildChildrenToRender() {
         indexSliderItem < countSliderItems && nextButton
       );
     }
-    // check for SliderPaginator 
+    // check for SliderPaginator
     else if (child.type === _SliderPaginator2.default) {
 
         _this.showPaginator = false;
@@ -992,7 +992,7 @@ function buildChildrenToRender() {
 
 /**
  * Slider Component
- * 
+ *
  * @class Slider
  * @extends {Component}
  */
@@ -1002,8 +1002,8 @@ var Slider = function (_Component) {
 
   /**
    * Creates an instance of Slider.
-   * @param {any} props 
-   * 
+   * @param {any} props
+   *
    * @memberof Slider
    */
   function Slider(props) {
@@ -1039,7 +1039,7 @@ var Slider = function (_Component) {
     _this2.handleScroll = _this2.handleScroll.bind(_this2);
     _this2.scrollToPanel = _this2.scrollToPanel.bind(_this2);
 
-    // set scroll event listener 
+    // set scroll event listener
     window.addEventListener('scroll', _this2.handleScroll);
 
     // build children
@@ -1074,10 +1074,10 @@ var Slider = function (_Component) {
     }
     /**
      * Scrolls to desired panel
-     * 
-     * @param {any} index 
-     * @param {any} callback 
-     * 
+     *
+     * @param {any} index
+     * @param {any} callback
+     *
      * @memberof Slider
      */
 
@@ -1093,9 +1093,9 @@ var Slider = function (_Component) {
     }
     /**
      * Window scroll listener
-     * 
-     * @returns 
-     * 
+     *
+     * @returns
+     *
      * @memberof Slider
      */
 
@@ -1108,9 +1108,9 @@ var Slider = function (_Component) {
 
       /**
        * Get sum off offsetHeight for all slider items previous to an index item
-       * decrement a specific amount of the last slider 
+       * decrement a specific amount of the last slider
        * @param {number} [value=0.5|[0.1,0.9]] - the amount in percentage of the slider index offsetHeight to be left to scroll
-       * when setting a different slider active 
+       * when setting a different slider active
        * Ex: 0.5 - means that we will set the next slider after scroll 50% of the active index
        */
       function _getSumOffset(items, index, value) {
@@ -1138,10 +1138,10 @@ var Slider = function (_Component) {
     /**
      * Updates the index for the active panel on state
      * Called from the Paginator component or from the scroll handler
-     * 
-     * @param {any} index 
-     * @param {any} scrollTo 
-     * 
+     *
+     * @param {any} index
+     * @param {any} scrollTo
+     *
      * @memberof Slider
      */
 
@@ -1153,6 +1153,14 @@ var Slider = function (_Component) {
       this.setState({ activeIndex: index }, function () {
         if (scrollTo) {
           _this5.scrollToPanel(index);
+
+          var setActivePanelEvent = new CustomEvent('set-active-panel', {
+            detail: { index: index },
+            bubbles: true
+          });
+
+          // Send custom event to the parent
+          window.dispatchEvent(setActivePanelEvent);
         }
       });
     }
@@ -1171,6 +1179,7 @@ var Slider = function (_Component) {
           style: style
         },
         this.showPaginator && _react2.default.createElement(_Paginator2.default, _extends({}, this.paginatorProps, {
+          className: 'panel-' + this.state.activeIndex,
           activeIndex: this.state.activeIndex
         })),
         this.childrenToRender
